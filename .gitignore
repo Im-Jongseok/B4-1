@@ -1,0 +1,12 @@
+# 과제 명세 PDF
+*.pdf
+
+# macOS
+.DS_Store
+
+# Editor
+.vscode/
+.idea/
+
+# etc
+*.log
