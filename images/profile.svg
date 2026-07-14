@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="프로필 플레이스홀더">
+  <circle cx="80" cy="80" r="80" fill="#e2e8f0"/>
+  <circle cx="80" cy="62" r="26" fill="#94a3b8"/>
+  <path d="M32 140c0-26 22-42 48-42s48 16 48 42a80 80 0 0 1-96 0z" fill="#94a3b8"/>
+</svg>

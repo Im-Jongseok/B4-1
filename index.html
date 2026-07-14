@@ -3,22 +3,110 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="이종석의 포트폴리오 웹사이트">
-  <title>이종석 | 포트폴리오</title>
+  <meta name="description" content="[이름]의 포트폴리오 웹사이트">
+  <title>[이름] | 포트폴리오</title>
   <link rel="stylesheet" href="css/style.css">
   <script src="js/main.js" defer></script>
 </head>
 <body>
-  <header>
-    <!-- 로고 / 네비게이션 / 다크 모드 토글 / 햄버거 버튼 -->
+  <header class="header">
+    <a href="#hero" class="header__logo">[Logo]</a>
+
+    <nav class="header__nav nav" aria-label="메인 메뉴">
+      <ul class="nav__list">
+        <li><a href="#hero" class="nav__link">홈</a></li>
+        <li><a href="#about" class="nav__link">소개</a></li>
+        <li><a href="#skills" class="nav__link">기술</a></li>
+        <li><a href="#projects" class="nav__link">프로젝트</a></li>
+        <li><a href="#contact" class="nav__link">문의</a></li>
+      </ul>
+    </nav>
+
+    <div class="header__actions">
+      <button type="button" class="theme-toggle" aria-label="다크 모드 전환">[icon: moon]</button>
+      <button type="button" class="hamburger" aria-label="메뉴 열기" aria-expanded="false">[icon: menu]</button>
+    </div>
   </header>
 
   <main>
-    <!-- Hero / About / Skills / Projects / Contact 섹션 -->
+    <!-- Hero: 인사말 + CTA -->
+    <section id="hero" class="hero">
+      <p class="hero__title">[인사말]</p>
+      <p class="hero__subtitle">[한 줄 소개]</p>
+      <div class="hero__cta">
+        <a href="#projects" class="btn btn--primary">프로젝트 보기</a>
+        <a href="#contact" class="btn btn--outline">연락하기</a>
+      </div>
+    </section>
+
+    <!-- About: 자기소개 + 프로필 이미지 -->
+    <section id="about" class="about">
+      <h3 class="section-title">About Me</h3>
+      <div class="about__content">
+        <img src="images/profile.svg" alt="[이름] 프로필 이미지" class="about__photo" width="80" height="80">
+        <div class="about__text">
+          <p>[자기소개]</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills: 기술 스택 목록 -->
+    <section id="skills" class="skills">
+      <h3 class="section-title">Skills</h3>
+      <ul class="skills__list">
+        <li class="skills__item">[기술 1]</li>
+        <li class="skills__item">[기술 2]</li>
+        <li class="skills__item">[기술 3]</li>
+      </ul>
+    </section>
+
+    <!-- Projects: GitHub API 연동 카드 (js/main.js에서 동적 렌더링) -->
+    <section id="projects" class="projects">
+      <h3 class="section-title">Projects</h3>
+      <div class="projects__status" role="status">
+        <!-- 로딩 / 에러 / 빈 상태 메시지가 표시됨 -->
+      </div>
+      <div class="projects__grid">
+        <!-- GitHub 저장소 카드(article)가 동적으로 렌더링됨 -->
+      </div>
+    </section>
+
+    <!-- Contact: 문의 폼 -->
+    <section id="contact" class="contact">
+      <h3 class="section-title">Contact</h3>
+      <ul class="contact__info">
+        <li>GitHub: <a href="#" target="_blank" rel="noopener noreferrer">[GitHub 주소]</a></li>
+        <li>Email: <a href="#">[이메일]</a></li>
+      </ul>
+      <form class="contact__form form" novalidate>
+        <div class="form__field">
+          <label for="name">이름</label>
+          <input type="text" id="name" name="name" placeholder="이름을 입력해주세요" required>
+          <p class="form__error" id="name-error"></p>
+        </div>
+
+        <div class="form__field">
+          <label for="email">이메일</label>
+          <input type="email" id="email" name="email" placeholder="example@email.com" required>
+          <p class="form__error" id="email-error"></p>
+        </div>
+
+        <div class="form__field">
+          <label for="message">메시지</label>
+          <textarea id="message" name="message" rows="6" placeholder="메시지를 입력해주세요" required></textarea>
+          <p class="form__error" id="message-error"></p>
+        </div>
+
+        <button type="submit" class="btn btn--primary">보내기</button>
+        <p class="form__success" role="status"></p>
+      </form>
+    </section>
   </main>
 
-  <footer>
-    <!-- 저작권 / 소셜 링크 -->
+  <footer class="footer">
+    <p class="footer__copyright">&copy; 2026 [이름]. All rights reserved.</p>
   </footer>
+
+  <button type="button" class="scroll-top" aria-label="맨 위로 이동">[icon: arrow-up]</button>
 </body>
 </html>
