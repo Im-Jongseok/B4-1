@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="[이름]의 포트폴리오 웹사이트">
   <title>[이름] | 포트폴리오</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+  <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/style.css">
   <script src="js/main.js" defer></script>
 </head>
@@ -29,14 +31,10 @@
   </header>
 
   <main>
-    <!-- Hero: 인사말 + CTA -->
+    <!-- Hero: 인사말 -->
     <section id="hero" class="hero">
       <p class="hero__title">[인사말]</p>
       <p class="hero__subtitle">[한 줄 소개]</p>
-      <div class="hero__cta">
-        <a href="#projects" class="btn btn--primary">프로젝트 보기</a>
-        <a href="#contact" class="btn btn--outline">연락하기</a>
-      </div>
     </section>
 
     <!-- About: 자기소개 + 프로필 이미지 -->
@@ -97,7 +95,7 @@
           <p class="form__error" id="message-error"></p>
         </div>
 
-        <button type="submit" class="btn btn--primary">보내기</button>
+        <button type="submit" class="btn" aria-label="메시지 보내기">[icon: send]</button>
         <p class="form__success" role="status"></p>
       </form>
     </section>

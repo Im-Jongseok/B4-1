@@ -1,0 +1,138 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1220" font-family="Pretendard, -apple-system, sans-serif">
+  <defs>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#000000" flood-opacity="0.08"/>
+    </filter>
+  </defs>
+
+  <!-- 시트 -->
+  <rect x="0.5" y="0.5" width="999" height="1219" rx="16" fill="#ffffff" stroke="#e2e8f0"/>
+
+  <!-- 헤더 -->
+  <text x="48" y="64" font-size="22" fill="#1e293b">포트폴리오 디자인 시스템</text>
+  <text x="48" y="90" font-size="12" fill="#94a3b8">B4-1 · 순수 HTML/CSS/JS · css/style.css 변수 기준</text>
+
+  <!-- ═══ COLORS ═══ -->
+  <text x="48" y="144" font-size="12" fill="#94a3b8" letter-spacing="2">COLORS</text>
+  <line x1="48" y1="154" x2="952" y2="154" stroke="#f1f5f9" stroke-width="1"/>
+
+  <text x="48" y="180" font-size="11" fill="#64748b">Light — :root</text>
+  <!-- 라이트 스와치 -->
+  <g>
+    <rect x="48" y="192" width="88" height="56" rx="8" fill="#ffffff" stroke="#e2e8f0"/>
+    <text x="48" y="266" font-size="10.5" fill="#1e293b">Background</text>
+    <text x="48" y="280" font-size="9.5" fill="#94a3b8">#FFFFFF</text>
+    <rect x="149" y="192" width="88" height="56" rx="8" fill="#f1f5f9" stroke="#e2e8f0"/>
+    <text x="149" y="266" font-size="10.5" fill="#1e293b">Surface</text>
+    <text x="149" y="280" font-size="9.5" fill="#94a3b8">#F1F5F9</text>
+    <rect x="250" y="192" width="88" height="56" rx="8" fill="#1e293b"/>
+    <text x="250" y="266" font-size="10.5" fill="#1e293b">Text</text>
+    <text x="250" y="280" font-size="9.5" fill="#94a3b8">#1E293B</text>
+    <rect x="351" y="192" width="88" height="56" rx="8" fill="#64748b"/>
+    <text x="351" y="266" font-size="10.5" fill="#1e293b">Text Muted</text>
+    <text x="351" y="280" font-size="9.5" fill="#94a3b8">#64748B</text>
+    <rect x="452" y="192" width="88" height="56" rx="8" fill="#0f4c81"/>
+    <text x="452" y="266" font-size="10.5" fill="#1e293b">Primary</text>
+    <text x="452" y="280" font-size="9.5" fill="#94a3b8">#0F4C81</text>
+    <rect x="553" y="192" width="88" height="56" rx="8" fill="#ffffff" stroke="#e2e8f0"/>
+    <text x="553" y="266" font-size="10.5" fill="#1e293b">On Primary</text>
+    <text x="553" y="280" font-size="9.5" fill="#94a3b8">#FFFFFF</text>
+    <rect x="654" y="192" width="88" height="56" rx="8" fill="#e2e8f0"/>
+    <text x="654" y="266" font-size="10.5" fill="#1e293b">Border</text>
+    <text x="654" y="280" font-size="9.5" fill="#94a3b8">#E2E8F0</text>
+    <rect x="755" y="192" width="88" height="56" rx="8" fill="#991b1b"/>
+    <text x="755" y="266" font-size="10.5" fill="#1e293b">Error</text>
+    <text x="755" y="280" font-size="9.5" fill="#94a3b8">#991B1B</text>
+    <rect x="856" y="192" width="88" height="56" rx="8" fill="#166534"/>
+    <text x="856" y="266" font-size="10.5" fill="#1e293b">Success</text>
+    <text x="856" y="280" font-size="9.5" fill="#94a3b8">#166534</text>
+  </g>
+
+  <!-- 다크 패널 -->
+  <rect x="48" y="300" width="904" height="144" rx="12" fill="#0f172a"/>
+  <text x="64" y="326" font-size="11" fill="#94a3b8">Dark — [data-theme="dark"]</text>
+  <g>
+    <rect x="64" y="338" width="80" height="52" rx="8" fill="#0f172a" stroke="#334155"/>
+    <text x="64" y="410" font-size="10.5" fill="#e2e8f0">Background</text>
+    <text x="64" y="424" font-size="9.5" fill="#94a3b8">#0F172A</text>
+    <rect x="163" y="338" width="80" height="52" rx="8" fill="#1e293b" stroke="#334155"/>
+    <text x="163" y="410" font-size="10.5" fill="#e2e8f0">Surface</text>
+    <text x="163" y="424" font-size="9.5" fill="#94a3b8">#1E293B</text>
+    <rect x="262" y="338" width="80" height="52" rx="8" fill="#e2e8f0"/>
+    <text x="262" y="410" font-size="10.5" fill="#e2e8f0">Text</text>
+    <text x="262" y="424" font-size="9.5" fill="#94a3b8">#E2E8F0</text>
+    <rect x="361" y="338" width="80" height="52" rx="8" fill="#94a3b8"/>
+    <text x="361" y="410" font-size="10.5" fill="#e2e8f0">Text Muted</text>
+    <text x="361" y="424" font-size="9.5" fill="#94a3b8">#94A3B8</text>
+    <rect x="460" y="338" width="80" height="52" rx="8" fill="#4a7fb0"/>
+    <text x="460" y="410" font-size="10.5" fill="#e2e8f0">Primary</text>
+    <text x="460" y="424" font-size="9.5" fill="#94a3b8">#4A7FB0</text>
+    <rect x="559" y="338" width="80" height="52" rx="8" fill="#ffffff"/>
+    <text x="559" y="410" font-size="10.5" fill="#e2e8f0">On Primary</text>
+    <text x="559" y="424" font-size="9.5" fill="#94a3b8">#FFFFFF</text>
+    <rect x="658" y="338" width="80" height="52" rx="8" fill="#334155"/>
+    <text x="658" y="410" font-size="10.5" fill="#e2e8f0">Border</text>
+    <text x="658" y="424" font-size="9.5" fill="#94a3b8">#334155</text>
+    <rect x="757" y="338" width="80" height="52" rx="8" fill="#b06060"/>
+    <text x="757" y="410" font-size="10.5" fill="#e2e8f0">Error</text>
+    <text x="757" y="424" font-size="9.5" fill="#94a3b8">#B06060</text>
+    <rect x="856" y="338" width="80" height="52" rx="8" fill="#55876b"/>
+    <text x="856" y="410" font-size="10.5" fill="#e2e8f0">Success</text>
+    <text x="856" y="424" font-size="9.5" fill="#94a3b8">#55876B</text>
+  </g>
+
+  <!-- ═══ TYPOGRAPHY ═══ -->
+  <text x="48" y="492" font-size="12" fill="#94a3b8" letter-spacing="2">TYPOGRAPHY</text>
+  <line x1="48" y1="502" x2="952" y2="502" stroke="#f1f5f9" stroke-width="1"/>
+
+  <text x="48" y="538" font-size="20" fill="#1e293b">섹션 제목</text>
+  <text x="952" y="538" font-size="11" fill="#94a3b8" text-anchor="end">--font-size-lg · 1.25rem</text>
+  <text x="48" y="572" font-size="16" fill="#1e293b">본문 텍스트 · Hero 인사말</text>
+  <text x="952" y="572" font-size="11" fill="#94a3b8" text-anchor="end">--font-size-base · 1rem</text>
+  <text x="48" y="602" font-size="14" fill="#1e293b">보조 정보 · 카드 메타 · 에러 메시지</text>
+  <text x="952" y="602" font-size="11" fill="#94a3b8" text-anchor="end">--font-size-sm · 0.875rem</text>
+  <text x="48" y="632" font-size="12" fill="#94a3b8">Pretendard Variable · 굵기 400 통일 · 행간 1.6 · 위계는 크기와 색으로만 표현</text>
+
+  <!-- ═══ SPACING ═══ -->
+  <text x="48" y="686" font-size="12" fill="#94a3b8" letter-spacing="2">SPACING</text>
+  <line x1="48" y1="696" x2="952" y2="696" stroke="#f1f5f9" stroke-width="1"/>
+
+  <text x="48" y="730" font-size="11" fill="#64748b">--space-xs</text>
+  <rect x="150" y="720" width="4" height="12" rx="2" fill="#0f4c81" opacity="0.85"/>
+  <text x="164" y="730" font-size="10" fill="#94a3b8">0.25rem — 라벨-인풋 간격</text>
+  <text x="48" y="756" font-size="11" fill="#64748b">--space-sm</text>
+  <rect x="150" y="746" width="8" height="12" rx="2" fill="#0f4c81" opacity="0.85"/>
+  <text x="168" y="756" font-size="10" fill="#94a3b8">0.5rem — 버튼 세로 패딩</text>
+  <text x="48" y="782" font-size="11" fill="#64748b">--space-md</text>
+  <rect x="150" y="772" width="16" height="12" rx="2" fill="#0f4c81" opacity="0.85"/>
+  <text x="176" y="782" font-size="10" fill="#94a3b8">1rem — 카드 패딩 · 폼 필드 간격</text>
+  <text x="48" y="808" font-size="11" fill="#64748b">--space-lg</text>
+  <rect x="150" y="798" width="32" height="12" rx="2" fill="#0f4c81" opacity="0.85"/>
+  <text x="192" y="808" font-size="10" fill="#94a3b8">2rem — 블록 간격 · 섹션 제목 아래</text>
+  <text x="48" y="834" font-size="11" fill="#64748b">--space-xl</text>
+  <rect x="150" y="824" width="64" height="12" rx="2" fill="#0f4c81" opacity="0.85"/>
+  <text x="224" y="834" font-size="10" fill="#94a3b8">4rem — 섹션 사이</text>
+
+  <!-- ═══ SHAPE &amp; EFFECTS ═══ -->
+  <text x="48" y="888" font-size="12" fill="#94a3b8" letter-spacing="2">SHAPE &amp; EFFECTS</text>
+  <line x1="48" y1="898" x2="952" y2="898" stroke="#f1f5f9" stroke-width="1"/>
+
+  <rect x="48" y="918" width="120" height="64" rx="8" fill="#f1f5f9" stroke="#e2e8f0"/>
+  <text x="108" y="1002" font-size="10" fill="#94a3b8" text-anchor="middle">--radius · 8px</text>
+  <rect x="208" y="918" width="120" height="64" rx="8" fill="#ffffff" stroke="#e2e8f0" filter="url(#shadow)"/>
+  <text x="268" y="1002" font-size="10" fill="#94a3b8" text-anchor="middle">--shadow · 0 2px 8px</text>
+  <text x="368" y="954" font-size="11" fill="#64748b">--transition · 0.2s ease — hover 상태 전환에만 사용 (스크롤 리빌 애니메이션은 1차 제외)</text>
+
+  <!-- ═══ LAYOUT &amp; BEHAVIOR ═══ -->
+  <text x="48" y="1056" font-size="12" fill="#94a3b8" letter-spacing="2">LAYOUT &amp; BEHAVIOR</text>
+  <line x1="48" y1="1066" x2="952" y2="1066" stroke="#f1f5f9" stroke-width="1"/>
+
+  <text x="48" y="1094" font-size="11" fill="#64748b">브레이크포인트</text>
+  <text x="220" y="1094" font-size="12" fill="#1e293b">모바일 기본 (모바일 퍼스트) → 768px 태블릿 → 1024px 데스크톱</text>
+  <text x="48" y="1120" font-size="11" fill="#64748b">헤더 / 네비</text>
+  <text x="220" y="1120" font-size="12" fill="#1e293b">Flexbox — 로고 왼쪽 · 메뉴 오른쪽 · 모바일에서는 햄버거</text>
+  <text x="48" y="1146" font-size="11" fill="#64748b">Projects 그리드</text>
+  <text x="220" y="1146" font-size="12" fill="#1e293b">repeat(auto-fit, minmax(280px, 1fr))</text>
+  <text x="48" y="1172" font-size="11" fill="#64748b">동작 기준값</text>
+  <text x="220" y="1172" font-size="12" fill="#1e293b">스크롤 탑 버튼 300px · 네비 배경 변경 60px · 스크롤 리빌 1차 제외 (추후 IO 0.2)</text>
+</svg>

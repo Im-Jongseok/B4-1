@@ -3,3 +3,114 @@
    - 모바일 퍼스트 반응형 (768px 태블릿, 1024px 데스크톱)
    - CSS 변수 기반 라이트/다크 테마
    ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. CSS 변수 — 라이트 테마 (기본)
+   -------------------------------------------------------------------------- */
+:root {
+  /* 색상 */
+  --color-bg: #ffffff;
+  --color-surface: #f1f5f9;
+  --color-text: #1e293b;
+  --color-text-muted: #64748b;
+  --color-primary: #0f4c81;
+  --color-primary-contrast: #ffffff;
+  --color-border: #e2e8f0;
+  --color-error: #991b1b;
+  --color-success: #166534;
+
+  /* 폰트 */
+  --font-family: "Pretendard Variable", Pretendard, -apple-system,
+    BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.25rem;
+  --font-size-xl: 1.5rem;
+
+  /* 간격 */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 2rem;
+  --space-xl: 4rem;
+
+  /* 기타 */
+  --radius: 8px;
+  --shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  --transition: 0.2s ease;
+}
+
+/* --------------------------------------------------------------------------
+   2. CSS 변수 — 다크 테마 (data-theme="dark"일 때 덮어씀)
+   -------------------------------------------------------------------------- */
+[data-theme="dark"] {
+  --color-bg: #0f172a;
+  --color-surface: #1e293b;
+  --color-text: #e2e8f0;
+  --color-text-muted: #94a3b8;
+  --color-primary: #4a7fb0;
+  --color-primary-contrast: #ffffff;
+  --color-border: #334155;
+  --color-error: #b06060;
+  --color-success: #55876b;
+  --shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+/* --------------------------------------------------------------------------
+   3. 기본 타이포그래피 (리셋은 reset.css)
+   -------------------------------------------------------------------------- */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-family);
+  font-size: var(--font-size-base);
+  line-height: 1.6;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  transition: color var(--transition), background-color var(--transition);
+}
+
+/* 폰트 굵기 통일 — 모든 요소 400 고정 (위계는 크기·색으로만 표현) */
+* {
+  font-weight: 400;
+}
+
+/* --------------------------------------------------------------------------
+   4. 공통 컴포넌트
+   -------------------------------------------------------------------------- */
+
+/* 섹션 제목 */
+.section-title {
+  font-size: var(--font-size-lg);
+  margin-bottom: var(--space-lg);
+}
+
+/* 버튼 — 컬러 없이 테두리만, hover 시 면 배경 */
+.btn {
+  display: inline-block;
+  padding: var(--space-sm) var(--space-lg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  transition: background-color var(--transition), border-color var(--transition);
+}
+
+.btn:hover {
+  background-color: var(--color-surface);
+  border-color: var(--color-text-muted);
+}
+
+/* 카드 (Projects 저장소 카드에서 사용) */
+.card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: var(--space-md);
+  transition: box-shadow var(--transition), transform var(--transition);
+}
+
+.card:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+}

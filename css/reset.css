@@ -1,0 +1,87 @@
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+body {
+    line-height: 1;
+}
+ol, ul {
+    list-style: none;
+}
+blockquote, q {
+    quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+    content: '';
+    content: none;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+/* ==========================================================================
+   Meyer 리셋 보강 — 원문에 없는 현대 필수 항목
+   (디자인 결정은 style.css에서만 다룬다)
+   ========================================================================== */
+
+/* 반응형 레이아웃 기본기: 패딩·보더를 폭 계산에 포함 */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+/* 반응형 이미지: 컨테이너보다 커지지 않게 */
+img {
+    max-width: 100%;
+    display: block;
+}
+
+/* 링크 밑줄·색 제거 (색은 부모 상속) */
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+/* 폼 요소 초기화 — Meyer 리셋은 폼 요소를 다루지 않음 */
+button {
+    font: inherit;
+    color: inherit;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+input,
+textarea {
+    font: inherit;
+    color: inherit;
+}
