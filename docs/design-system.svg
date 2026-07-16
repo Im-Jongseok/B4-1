@@ -117,9 +117,9 @@
   <text x="48" y="888" font-size="12" fill="#94a3b8" letter-spacing="2">SHAPE &amp; EFFECTS</text>
   <line x1="48" y1="898" x2="952" y2="898" stroke="#f1f5f9" stroke-width="1"/>
 
-  <rect x="48" y="918" width="120" height="64" rx="8" fill="#f1f5f9" stroke="#e2e8f0"/>
-  <text x="108" y="1002" font-size="10" fill="#94a3b8" text-anchor="middle">--radius · 8px</text>
-  <rect x="208" y="918" width="120" height="64" rx="8" fill="#ffffff" stroke="#e2e8f0" filter="url(#shadow)"/>
+  <rect x="48" y="918" width="120" height="64" fill="#f1f5f9" stroke="#e2e8f0"/>
+  <text x="108" y="1002" font-size="10" fill="#94a3b8" text-anchor="middle">--radius · 0 (라운드 없음)</text>
+  <rect x="208" y="918" width="120" height="64" fill="#ffffff" stroke="#e2e8f0" filter="url(#shadow)"/>
   <text x="268" y="1002" font-size="10" fill="#94a3b8" text-anchor="middle">--shadow · 0 2px 8px</text>
   <text x="368" y="954" font-size="11" fill="#64748b">--transition · 0.2s ease — hover 상태 전환에만 사용 (스크롤 리빌 애니메이션은 1차 제외)</text>
 
@@ -128,11 +128,11 @@
   <line x1="48" y1="1066" x2="952" y2="1066" stroke="#f1f5f9" stroke-width="1"/>
 
   <text x="48" y="1094" font-size="11" fill="#64748b">브레이크포인트</text>
-  <text x="220" y="1094" font-size="12" fill="#1e293b">모바일 기본 (모바일 퍼스트) → 768px 태블릿 → 1024px 데스크톱</text>
+  <text x="220" y="1094" font-size="12" fill="#1e293b">모바일 기본 → 768px 태블릿 → 1024px 그리드 (hero 대형|소개/연락, 스킬 필터 바, 프로젝트 전체 폭)</text>
   <text x="48" y="1120" font-size="11" fill="#64748b">헤더 / 네비</text>
-  <text x="220" y="1120" font-size="12" fill="#1e293b">Flexbox — 로고 왼쪽 · 메뉴 오른쪽 · 모바일에서는 햄버거</text>
+  <text x="220" y="1120" font-size="12" fill="#1e293b">Flexbox — 로고 왼쪽 · 햄버거 오른쪽 · 메뉴는 오른쪽 드롭다운 패널 (전 화면 햄버거 토글)</text>
   <text x="48" y="1146" font-size="11" fill="#64748b">Projects 그리드</text>
   <text x="220" y="1146" font-size="12" fill="#1e293b">repeat(auto-fit, minmax(280px, 1fr))</text>
   <text x="48" y="1172" font-size="11" fill="#64748b">동작 기준값</text>
-  <text x="220" y="1172" font-size="12" fill="#1e293b">스크롤 탑 버튼 300px · 네비 배경 변경 60px · 스크롤 리빌 1차 제외 (추후 IO 0.2)</text>
+  <text x="220" y="1172" font-size="12" fill="#1e293b">스크롤 탑 버튼: 스크롤 시 노출 (하단 중앙) · 네비 배경 변경 60px · 스크롤 리빌 1차 제외</text>
 </svg>

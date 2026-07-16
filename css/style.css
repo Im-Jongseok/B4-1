@@ -19,9 +19,9 @@
   --color-error: #991b1b;
   --color-success: #166534;
 
-  /* 폰트 */
-  --font-family: "Pretendard Variable", Pretendard, -apple-system,
-    BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  /* 폰트 — 영문·숫자는 Hack(모노스페이스), 한글은 Pretendard 폴백 */
+  --font-family: Hack, "Pretendard Variable", Pretendard, -apple-system,
+    BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", monospace;
   --font-size-sm: 0.875rem;
   --font-size-base: 1rem;
   --font-size-lg: 1.25rem;
@@ -34,8 +34,8 @@
   --space-lg: 2rem;
   --space-xl: 4rem;
 
-  /* 기타 */
-  --radius: 8px;
+  /* 기타 — 라운드 미사용 (각진 모서리) */
+  --radius: 0;
   --shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   --transition: 0.2s ease;
 }
@@ -61,9 +61,15 @@
    -------------------------------------------------------------------------- */
 html {
   scroll-behavior: smooth;
+  /* 고정 헤더에 앵커 이동 위치가 가려지지 않게 보정 */
+  scroll-padding-top: 4.5rem;
+  /* 페이지 끝에서 튕기는 고무줄 스크롤 차단 — sticky 헤더 흔들림 방지 */
+  overscroll-behavior-y: none;
 }
 
 body {
+  /* 최소 지원 폭 320px — 그보다 좁으면 가로 스크롤 허용 */
+  min-width: 320px;
   font-family: var(--font-family);
   font-size: var(--font-size-base);
   line-height: 1.6;
@@ -81,10 +87,16 @@ body {
    4. 공통 컴포넌트
    -------------------------------------------------------------------------- */
 
-/* 섹션 제목 */
+/* 섹션 제목 — 코드 주석 스타일의 작은 라벨 (Hack 폰트와 어울림) */
 .section-title {
-  font-size: var(--font-size-lg);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  letter-spacing: 0.08em;
   margin-bottom: var(--space-lg);
+}
+
+.section-title::before {
+  content: "// ";
 }
 
 /* 버튼 — 컬러 없이 테두리만, hover 시 면 배경 */
@@ -113,4 +125,299 @@ body {
 
 .card:hover {
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+}
+
+/* --------------------------------------------------------------------------
+   5. 레이아웃 — 모바일 퍼스트 (768px 태블릿, 1024px 데스크톱)
+   -------------------------------------------------------------------------- */
+
+/* 헤더: 항상 상단 고정, 로고 왼쪽 · 메뉴/액션 오른쪽 (Flexbox) */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* 기본(3rem)의 1.5배 높이 — scroll-padding-top·hero 높이 계산과 연동 */
+  min-height: 4.5rem;
+  /* 헤더는 풀스크린 — 로고·아이콘이 화면 양끝에 붙음 */
+  padding: var(--space-sm) var(--space-md);
+  background-color: var(--color-bg);
+  border-bottom: 1px solid var(--color-border);
+  transition: background-color var(--transition);
+}
+
+/* 스크롤 시 네비 배경 변경 (JS가 .scrolled 토글) */
+.header.scrolled {
+  background-color: var(--color-surface);
+  box-shadow: var(--shadow);
+}
+
+.header__logo {
+  font-size: var(--font-size-lg);
+}
+
+/* 네비게이션: 기본 숨김, 햄버거로 토글 — 오른쪽 드롭다운 패널 (전 화면 공통) */
+.header__nav {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: var(--space-md);
+  min-width: 180px;
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 0 0 var(--radius) var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.header__nav.active {
+  display: block;
+}
+
+.nav__list {
+  display: flex;
+  flex-direction: column;
+}
+
+.nav__link {
+  display: block;
+  padding: var(--space-sm) var(--space-md);
+}
+
+.nav__link:hover {
+  color: var(--color-primary);
+}
+
+.header__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.theme-toggle,
+.hamburger {
+  padding: var(--space-xs) var(--space-sm);
+}
+
+/* 본문 섹션: 화면 전체 폭 사용 */
+main > section {
+  padding: var(--space-xl) var(--space-md);
+}
+
+/* Hero: 모든 화면에서 첫 화면을 가득 채움 (4.5rem = 헤더 높이) */
+.hero {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 4.5rem);
+  text-align: center;
+}
+
+.hero__subtitle {
+  margin-top: var(--space-sm);
+  color: var(--color-text-muted);
+}
+
+/* About: 모바일은 세로 쌓기, 태블릿부터 가로 배치 */
+.about__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-lg);
+}
+
+/* Skills: 뱃지/아이콘 목록이자 프로젝트 언어 필터 버튼 */
+.skills__list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.skills__filter {
+  padding: var(--space-xs) var(--space-sm);
+  border: 1px solid transparent;
+  color: var(--color-text-muted);
+  transition: color var(--transition), border-color var(--transition);
+}
+
+.skills__filter:hover {
+  color: var(--color-text);
+}
+
+/* 선택된 필터: 청사진 포인트로 표시 */
+.skills__filter.active {
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+/* Projects: auto-fit 반응형 그리드 */
+.projects__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-md);
+}
+
+.projects__status {
+  padding: var(--space-lg) 0;
+  text-align: center;
+  color: var(--color-text-muted);
+}
+
+/* Contact: 아이콘 링크 가로 나열 — [icon: github] 링크 + [icon: mail] 폼 토글 */
+.contact__info {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  margin-bottom: var(--space-lg);
+}
+
+.contact__info a:hover,
+.form-toggle:hover {
+  color: var(--color-primary);
+}
+
+/* 문의 폼: 기본 숨김 — [icon: mail] 버튼 클릭 시 JS가 .visible 토글 (6단계) */
+.contact__form {
+  display: none;
+  max-width: 480px;
+  margin-top: var(--space-lg);
+}
+
+.contact__form.visible {
+  display: block;
+}
+
+.form__field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  margin-bottom: var(--space-md);
+}
+
+.form__field input,
+.form__field textarea {
+  padding: var(--space-sm) var(--space-md);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  transition: border-color var(--transition);
+}
+
+.form__field input:focus,
+.form__field textarea:focus {
+  outline: none;
+  border-color: var(--color-primary);
+}
+
+.form__error {
+  font-size: var(--font-size-sm);
+  color: var(--color-error);
+}
+
+.form__success {
+  margin-top: var(--space-sm);
+  color: var(--color-success);
+}
+
+/* 푸터 */
+.footer {
+  padding: var(--space-lg) var(--space-md);
+  border-top: 1px solid var(--color-border);
+  text-align: center;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+/* 스크롤 탑 버튼: 하단 중앙, 기본 숨김 — 스크롤 시작 시 JS가 .visible 토글 (6단계) */
+.scroll-top {
+  display: none;
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: var(--space-md);
+  padding: var(--space-sm) var(--space-md);
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.scroll-top.visible {
+  display: block;
+}
+
+/* --------------------------------------------------------------------------
+   6. 반응형 — 태블릿 (768px~)
+   -------------------------------------------------------------------------- */
+@media (min-width: 768px) {
+  .header {
+    padding: var(--space-sm) var(--space-lg);
+  }
+
+  .header__nav {
+    right: var(--space-lg);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   7. 반응형 — 데스크톱 (1024px~)
+   -------------------------------------------------------------------------- */
+@media (min-width: 1024px) {
+  /* 섹션 재배치: hero 크게 왼쪽, 오른쪽에 자기소개(위)·연락(아래),
+     그 아래 스킬(컴팩트 필터 바) → 프로젝트(전체 폭).
+     HTML 순서는 시맨틱하게 유지하고 grid-area로 시각 배치만 변경 */
+  main {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-template-areas:
+      "hero about"
+      "hero contact"
+      "skills skills"
+      "projects projects";
+    column-gap: var(--space-lg);
+  }
+
+  /* Skills: 제목과 필터 버튼을 한 줄에 — 컴팩트 필터 바 */
+  .skills {
+    display: flex;
+    align-items: center;
+    gap: var(--space-lg);
+    padding-block: var(--space-lg);
+  }
+
+  .skills .section-title {
+    margin-bottom: 0;
+  }
+
+  /* Projects: 필터 바로 아래 바로 이어지도록 위 여백 축소 */
+  .projects {
+    padding-top: 0;
+  }
+
+  main > section {
+    padding: var(--space-xl) var(--space-lg);
+  }
+
+  .hero {
+    grid-area: hero;
+  }
+
+  .about {
+    grid-area: about;
+  }
+
+  .contact {
+    grid-area: contact;
+  }
+
+  .skills {
+    grid-area: skills;
+  }
+
+  .projects {
+    grid-area: projects;
+  }
 }

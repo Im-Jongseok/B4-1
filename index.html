@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="[이름]의 포트폴리오 웹사이트">
   <title>[이름] | 포트폴리오</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
   <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/style.css">
@@ -41,40 +42,19 @@
     <section id="about" class="about">
       <h3 class="section-title">About Me</h3>
       <div class="about__content">
-        <img src="images/profile.svg" alt="[이름] 프로필 이미지" class="about__photo" width="80" height="80">
+        <img src="images/profile.svg" alt="[이름] 프로필 이미지" class="about__photo" width="160" height="160">
         <div class="about__text">
           <p>[자기소개]</p>
         </div>
       </div>
     </section>
 
-    <!-- Skills: 기술 스택 목록 -->
-    <section id="skills" class="skills">
-      <h3 class="section-title">Skills</h3>
-      <ul class="skills__list">
-        <li class="skills__item">[기술 1]</li>
-        <li class="skills__item">[기술 2]</li>
-        <li class="skills__item">[기술 3]</li>
-      </ul>
-    </section>
-
-    <!-- Projects: GitHub API 연동 카드 (js/main.js에서 동적 렌더링) -->
-    <section id="projects" class="projects">
-      <h3 class="section-title">Projects</h3>
-      <div class="projects__status" role="status">
-        <!-- 로딩 / 에러 / 빈 상태 메시지가 표시됨 -->
-      </div>
-      <div class="projects__grid">
-        <!-- GitHub 저장소 카드(article)가 동적으로 렌더링됨 -->
-      </div>
-    </section>
-
-    <!-- Contact: 문의 폼 -->
+    <!-- Contact: 아이콘 링크 + 문의 폼 (폼은 [icon: mail] 토글) -->
     <section id="contact" class="contact">
       <h3 class="section-title">Contact</h3>
       <ul class="contact__info">
-        <li>GitHub: <a href="#" target="_blank" rel="noopener noreferrer">[GitHub 주소]</a></li>
-        <li>Email: <a href="#">[이메일]</a></li>
+        <li><a href="#" target="_blank" rel="noopener noreferrer" aria-label="GitHub 프로필">[icon: github]</a></li>
+        <li><button type="button" class="form-toggle" aria-expanded="false" aria-label="문의 폼 열기">[icon: mail]</button></li>
       </ul>
       <form class="contact__form form" novalidate>
         <div class="form__field">
@@ -99,6 +79,29 @@
         <p class="form__success" role="status"></p>
       </form>
     </section>
+
+    <!-- Skills: 기술 스택 목록 = 프로젝트 언어 필터
+         (js/main.js가 GitHub 저장소 언어 목록으로 버튼을 동적 생성) -->
+    <section id="skills" class="skills">
+      <h3 class="section-title">Skills</h3>
+      <ul class="skills__list">
+        <li><button type="button" class="skills__filter" data-language="">[badge: 기술 1]</button></li>
+        <li><button type="button" class="skills__filter" data-language="">[badge: 기술 2]</button></li>
+        <li><button type="button" class="skills__filter" data-language="">[badge: 기술 3]</button></li>
+      </ul>
+    </section>
+
+    <!-- Projects: GitHub API 연동 카드 (js/main.js에서 동적 렌더링) -->
+    <section id="projects" class="projects">
+      <h3 class="section-title">Projects</h3>
+      <div class="projects__status" role="status">
+        <!-- 로딩 / 에러 / 빈 상태 메시지가 표시됨 -->
+      </div>
+      <div class="projects__grid">
+        <!-- GitHub 저장소 카드(article)가 동적으로 렌더링됨 -->
+      </div>
+    </section>
+
   </main>
 
   <footer class="footer">
