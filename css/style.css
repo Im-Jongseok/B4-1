@@ -335,6 +335,11 @@ main > section {
   opacity: 0.6;
 }
 
+.contact__form-send:disabled {
+  color: var(--color-text-muted);
+  cursor: not-allowed;
+}
+
 .form__field {
   padding: var(--space-sm) var(--space-md);
   border-bottom: 1px solid var(--color-border);
@@ -394,6 +399,10 @@ main > section {
 .form__success {
   padding: var(--space-sm) var(--space-md);
   color: var(--color-success);
+}
+
+.form__success--error {
+  color: var(--color-error);
 }
 
 .form__success:empty {
