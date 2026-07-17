@@ -279,47 +279,125 @@ main > section {
   color: var(--color-primary);
 }
 
-/* 문의 폼: 기본 숨김 — [icon: mail] 버튼 클릭 시 JS가 .visible 토글 (6단계) */
-.contact__form {
+/* 문의 폼 팝업: 기본 숨김 — [icon: mail] 버튼 클릭 시 JS가 .visible 토글 */
+.contact__modal {
   display: none;
-  max-width: 480px;
-  margin-top: var(--space-lg);
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-md);
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
-.contact__form.visible {
-  display: block;
+.contact__modal.visible {
+  display: flex;
+}
+
+/* iOS Mail 작성 화면 느낌의 미니멀 시트: 상단바 + 구분선 필드 목록 */
+.contact__form {
+  width: 100%;
+  max-width: 420px;
+  max-height: 90vh;
+  overflow-y: auto;
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow);
+}
+
+.contact__form-bar {
+  position: sticky;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-sm) var(--space-md);
+  background-color: var(--color-bg);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.contact__form-close,
+.contact__form-send {
+  padding: var(--space-xs) 0;
+}
+
+.contact__form-close {
+  color: var(--color-text-muted);
+}
+
+.contact__form-send {
+  color: var(--color-primary);
+}
+
+.contact__form-close:hover,
+.contact__form-send:hover {
+  opacity: 0.6;
 }
 
 .form__field {
+  padding: var(--space-sm) var(--space-md);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.form__field--message {
+  border-bottom: none;
+}
+
+.form__field-row {
   display: flex;
-  flex-direction: column;
-  gap: var(--space-xs);
-  margin-bottom: var(--space-md);
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.form__field--message .form__field-row {
+  align-items: flex-start;
+}
+
+.form__field label {
+  flex-shrink: 0;
+  width: 4rem;
+  padding-top: var(--space-xs);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
 }
 
 .form__field input,
 .form__field textarea {
-  padding: var(--space-sm) var(--space-md);
-  background-color: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius);
-  transition: border-color var(--transition);
+  flex: 1;
+  min-width: 0;
+  padding: var(--space-xs) 0;
+  background: none;
+  border: none;
 }
 
 .form__field input:focus,
 .form__field textarea:focus {
   outline: none;
-  border-color: var(--color-primary);
+}
+
+.form__field textarea {
+  resize: none;
 }
 
 .form__error {
+  margin-top: var(--space-xs);
+  padding-left: calc(4rem + var(--space-sm));
   font-size: var(--font-size-sm);
   color: var(--color-error);
 }
 
+.form__error:empty {
+  display: none;
+}
+
 .form__success {
-  margin-top: var(--space-sm);
+  padding: var(--space-sm) var(--space-md);
   color: var(--color-success);
+}
+
+.form__success:empty {
+  display: none;
 }
 
 /* 푸터 */
