@@ -13,7 +13,7 @@ const themeToggle = document.querySelector('.theme-toggle');
 
 const renderTheme = (theme) => {
   document.documentElement.setAttribute('data-theme', theme);
-  themeToggle.textContent = theme === THEME_DARK ? '[icon: sun]' : '[icon: moon]';
+  themeToggle.classList.toggle('theme-toggle--dark', theme === THEME_DARK);
 };
 
 const savedTheme = localStorage.getItem(THEME_STORAGE_KEY) ?? THEME_LIGHT;

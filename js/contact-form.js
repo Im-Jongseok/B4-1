@@ -42,20 +42,23 @@ const validateField = (input) => {
 const renderSending = () => {
   submitButton.disabled = true;
   formSuccess.classList.remove('form__success--error');
-  formSuccess.textContent = '[icon: loader]';
+  formSuccess.innerHTML = '<i data-lucide="loader-circle" aria-hidden="true"></i>';
+  lucide.createIcons();
 };
 
 const renderSuccess = () => {
   submitButton.disabled = false;
   formSuccess.classList.remove('form__success--error');
-  formSuccess.textContent = '[icon: check]';
+  formSuccess.innerHTML = '<i data-lucide="check" aria-hidden="true"></i>';
+  lucide.createIcons();
   contactFormEl.reset();
 };
 
 const renderError = () => {
   submitButton.disabled = false;
   formSuccess.classList.add('form__success--error');
-  formSuccess.textContent = '[icon: alert-triangle]';
+  formSuccess.innerHTML = '<i data-lucide="triangle-alert" aria-hidden="true"></i>';
+  lucide.createIcons();
 };
 
 contactFormEl.addEventListener('submit', async (event) => {

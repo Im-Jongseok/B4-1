@@ -1,0 +1,16 @@
+{
+  "profile": {
+    "name": "이종석",
+    "logo": "Peeling",
+    "about": "자기소개",
+    "email": "im.jongseoklee@gmail.com",
+    "github": {
+      "username": "Im-Jongseok",
+      "url": "https://github.com/Im-Jongseok"
+    }
+  },
+  "hero": {
+    "title": "[인사말]",
+    "subtitle": "[한 줄 소개]"
+  }
+}

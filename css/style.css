@@ -83,16 +83,50 @@ body {
   font-weight: 400;
 }
 
+/* Lucide 아이콘: 텍스트 크기에 맞춰 스케일, 색은 부모(currentColor) 상속 */
+.lucide {
+  width: 1.1em;
+  height: 1.1em;
+  vertical-align: -0.15em;
+}
+
+/* devicons 아이콘: 텍스트 크기에 맞춰 스케일 (GitHub는 인라인 SVG로 currentColor 상속, Skills 배지는 <img>) */
+.contact__icon,
+.skills__filter-icon {
+  display: inline-block;
+  width: 1.1em;
+  height: 1.1em;
+  vertical-align: -0.2em;
+}
+
+/* Contact 아이콘: 좀 더 크게 */
+.contact__info .lucide,
+.contact__info .contact__icon {
+  width: 1.6em;
+  height: 1.6em;
+}
+
+/* Skills 배지 아이콘: 좀 더 크게 */
+.skills__filter-icon {
+  width: 1.4em;
+  height: 1.4em;
+}
+
 /* --------------------------------------------------------------------------
    4. 공통 컴포넌트
    -------------------------------------------------------------------------- */
 
-/* 섹션 제목 — 코드 주석 스타일의 작은 라벨 (Hack 폰트와 어울림) */
+/* 섹션 제목 — 코드 주석 스타일의 작은 라벨 (Hack 폰트와 어울림). 화면에는 숨김, 구조/접근성용으로만 유지 */
 .section-title {
-  font-size: var(--font-size-sm);
-  color: var(--color-text-muted);
-  letter-spacing: 0.08em;
-  margin-bottom: var(--space-lg);
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 .section-title::before {
@@ -111,6 +145,18 @@ body {
 .btn:hover {
   background-color: var(--color-surface);
   border-color: var(--color-text-muted);
+}
+
+/* 원형 아이콘 버튼 — 다시 시도 버튼(에러 상태) */
+.projects-retry {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
+  background-color: var(--color-surface);
+  border-radius: 50%;
 }
 
 /* 카드 (Projects 저장소 카드에서 사용) — 배경 없이 테두리만으로 형태 표시 */
@@ -198,6 +244,19 @@ body {
   padding: var(--space-xs) var(--space-sm);
 }
 
+/* 다크 모드 토글: 두 아이콘을 겹쳐두고 테마에 따라 하나만 표시 (js/theme.js가 .theme-toggle--dark 토글) */
+.theme-toggle__icon--sun {
+  display: none;
+}
+
+.theme-toggle--dark .theme-toggle__icon--moon {
+  display: none;
+}
+
+.theme-toggle--dark .theme-toggle__icon--sun {
+  display: block;
+}
+
 /* 본문 섹션: 화면 전체 폭 사용 */
 main > section {
   padding: var(--space-xl) var(--space-md);
@@ -225,15 +284,26 @@ main > section {
 .hero {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
   min-height: calc(100vh - 4.5rem);
+  padding: var(--space-xl) var(--space-md);
   text-align: center;
 }
 
+.hero__title {
+  font-size: 2.5rem;
+}
+
 .hero__subtitle {
-  margin-top: var(--space-sm);
   color: var(--color-text-muted);
+}
+
+.hero__cta {
+  display: flex;
+  gap: var(--space-md);
+  margin-top: var(--space-lg);
 }
 
 /* About: 모바일은 세로 쌓기, 태블릿부터 가로 배치 */
@@ -241,7 +311,11 @@ main > section {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--space-lg);
+  gap: var(--space-sm);
+}
+
+.about__photo {
+  border-radius: 50%;
 }
 
 /* Skills: 뱃지/아이콘 목록이자 프로젝트 언어 필터 버튼 */
@@ -269,26 +343,6 @@ main > section {
   border-color: var(--color-primary);
 }
 
-.projects__head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: var(--space-lg);
-}
-
-.projects__head .section-title {
-  margin-bottom: 0;
-}
-
-.projects__refresh {
-  padding: var(--space-xs);
-  color: var(--color-text-muted);
-}
-
-.projects__refresh:hover {
-  color: var(--color-primary);
-}
-
 /* Projects: 고정 크기 카드가 auto-fill로 줄바꿈되는 그리드 */
 .projects__grid {
   display: grid;
@@ -303,12 +357,10 @@ main > section {
   color: var(--color-text-muted);
 }
 
-/* Contact: 아이콘 링크 가로 나열 — [icon: github] 링크 + [icon: mail] 폼 토글 */
 .contact__info {
   display: flex;
   align-items: center;
-  gap: var(--space-md);
-  margin-bottom: var(--space-lg);
+  gap: var(--space-sm);
 }
 
 .contact__info a:hover,
@@ -462,15 +514,19 @@ main > section {
   left: 50%;
   transform: translateX(-50%);
   bottom: var(--space-md);
-  padding: var(--space-sm) var(--space-md);
-  background-color: var(--color-bg);
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
+  background-color: var(--color-surface);
   border: 1px solid var(--color-border);
-  border-radius: var(--radius);
+  border-radius: 50%;
   box-shadow: var(--shadow);
 }
 
 .scroll-top.visible {
-  display: block;
+  display: flex;
 }
 
 /* Project 카드: GitHub 저장소 카드 (.card 박스 스타일 사용) — 고정 크기 */
@@ -542,24 +598,48 @@ main > section {
   .header__nav {
     right: var(--space-lg);
   }
+
+  /* About: 태블릿부터 그리드 배치 — 이미지 왼쪽(세로 전체), 텍스트 오른쪽 위, Contact 오른쪽 아래 */
+  .about__content {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-areas:
+      "photo text"
+      "photo contact";
+    align-items: start;
+    justify-content: center;
+    column-gap: var(--space-lg);
+    row-gap: var(--space-lg);
+  }
+
+  .about__photo {
+    grid-area: photo;
+  }
+
+  .about__text {
+    grid-area: text;
+  }
+
+  .about .contact {
+    grid-area: contact;
+    margin-top: 0;
+  }
 }
 
 /* --------------------------------------------------------------------------
    7. 반응형 — 데스크톱 (1024px~)
    -------------------------------------------------------------------------- */
 @media (min-width: 1024px) {
-  /* 섹션 재배치: hero 크게 왼쪽, 오른쪽에 자기소개(위)·연락(아래),
-     그 아래 스킬(컴팩트 필터 바) → 프로젝트(전체 폭).
+  /* 섹션 재배치: hero 상단 전체 폭, 그 아래 자기소개(Contact 포함) → 스킬(컴팩트 필터 바) → 프로젝트(전체 폭).
      HTML 순서는 시맨틱하게 유지하고 grid-area로 시각 배치만 변경 */
   main {
     display: grid;
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: 1fr;
     grid-template-areas:
-      "hero about"
-      "hero contact"
-      "skills skills"
-      "projects projects";
-    column-gap: var(--space-lg);
+      "hero"
+      "about"
+      "skills"
+      "projects";
   }
 
   /* Skills: 제목과 필터 버튼을 한 줄에 — 컴팩트 필터 바 */
@@ -589,10 +669,6 @@ main > section {
 
   .about {
     grid-area: about;
-  }
-
-  .contact {
-    grid-area: contact;
   }
 
   .skills {

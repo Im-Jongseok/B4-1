@@ -7,13 +7,17 @@
   <title>[이름] | 포트폴리오</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
   <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/style.css">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js" defer></script>
   <script src="js/theme.js" defer></script>
+  <script src="js/data.js" defer></script>
   <script src="js/github.js" defer></script>
   <script src="js/contact-modal.js" defer></script>
   <script src="js/contact-form.js" defer></script>
   <script src="js/reveal.js" defer></script>
+  <script src="js/icons.js" defer></script>
   <script src="js/main.js" defer></script>
 </head>
 <body>
@@ -31,19 +35,26 @@
     </nav>
 
     <div class="header__actions">
-      <button type="button" class="theme-toggle" aria-label="다크 모드 전환">[icon: moon]</button>
-      <button type="button" class="hamburger" aria-label="메뉴 열기" aria-expanded="false">[icon: menu]</button>
+      <button type="button" class="theme-toggle" aria-label="다크 모드 전환" title="다크 모드 전환">
+        <i data-lucide="moon" class="theme-toggle__icon theme-toggle__icon--moon" aria-hidden="true"></i>
+        <i data-lucide="sun" class="theme-toggle__icon theme-toggle__icon--sun" aria-hidden="true"></i>
+      </button>
+      <button type="button" class="hamburger" aria-label="메뉴 열기" aria-expanded="false" title="메뉴"><i data-lucide="menu" aria-hidden="true"></i></button>
     </div>
   </header>
 
   <main>
-    <!-- Hero: 인사말 -->
+    <!-- Hero: 고정 화면 — 인사말 + CTA 버튼 2개 (js/data.js가 heroCards[0]로 렌더링) -->
     <section id="hero" class="hero">
       <p class="hero__title">[인사말]</p>
       <p class="hero__subtitle">[한 줄 소개]</p>
+      <div class="hero__cta">
+        <a href="#projects" class="btn hero__cta-btn">View Projects</a>
+        <a href="#contact" class="btn hero__cta-btn">Contact</a>
+      </div>
     </section>
 
-    <!-- About: 자기소개 + 프로필 이미지 -->
+    <!-- About: 자기소개 + 프로필 이미지, 그 아래 Contact(아이콘 링크 + 문의 폼) -->
     <section id="about" class="about reveal">
       <h3 class="section-title">About Me</h3>
       <div class="about__content">
@@ -51,51 +62,52 @@
         <div class="about__text">
           <p>[자기소개]</p>
         </div>
-      </div>
-    </section>
 
-    <!-- Contact: 아이콘 링크 + 문의 폼 (폼은 [icon: mail] 토글) -->
-    <section id="contact" class="contact reveal">
-      <h3 class="section-title">Contact</h3>
-      <ul class="contact__info">
-        <li><a href="https://github.com/Im-Jongseok" target="_blank" rel="noopener noreferrer" aria-label="GitHub 프로필">[icon: github]</a></li>
-        <li><button type="button" class="form-toggle" aria-expanded="false" aria-haspopup="dialog" aria-label="문의 폼 열기">[icon: mail]</button></li>
-      </ul>
+        <!-- Contact: 아이콘 링크 + 문의 폼 (폼은 mail 아이콘 버튼으로 토글) -->
+        <div id="contact" class="contact">
+          <h3 class="section-title">Contact</h3>
+          <ul class="contact__info">
+            <li><a href="#" class="contact__github" target="_blank" rel="noopener noreferrer" aria-label="GitHub 프로필" title="GitHub"><svg class="contact__icon" viewBox="0 0 128 128" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M64 5.103c-33.347 0-60.388 27.035-60.388 60.388 0 26.682 17.303 49.317 41.297 57.303 3.017.56 4.125-1.31 4.125-2.905 0-1.44-.056-6.197-.082-11.243-16.8 3.653-20.345-7.125-20.345-7.125-2.747-6.98-6.705-8.836-6.705-8.836-5.48-3.748.413-3.67.413-3.67 6.063.425 9.257 6.223 9.257 6.223 5.386 9.23 14.127 6.562 17.573 5.02.542-3.903 2.107-6.568 3.834-8.076-13.413-1.525-27.514-6.704-27.514-29.843 0-6.593 2.36-11.98 6.223-16.21-.628-1.52-2.695-7.662.584-15.98 0 0 5.07-1.623 16.61 6.19C53.7 35 58.867 34.327 64 34.304c5.13.023 10.3.694 15.127 2.033 11.526-7.813 16.59-6.19 16.59-6.19 3.287 8.317 1.22 14.46.593 15.98 3.872 4.23 6.215 9.617 6.215 16.21 0 23.194-14.127 28.3-27.574 29.796 2.167 1.874 4.097 5.55 4.097 11.183 0 8.08-.07 14.583-.07 16.572 0 1.607 1.088 3.49 4.148 2.897 23.98-7.994 41.263-30.622 41.263-57.294C124.388 32.14 97.35 5.104 64 5.104z"/><path d="M26.484 91.806c-.133.3-.605.39-1.035.185-.44-.196-.685-.605-.543-.906.13-.31.603-.395 1.04-.188.44.197.69.61.537.91zm2.446 2.729c-.287.267-.85.143-1.232-.28-.396-.42-.47-.983-.177-1.254.298-.266.844-.14 1.24.28.394.426.472.984.17 1.255zM31.312 98.012c-.37.258-.976.017-1.35-.52-.37-.538-.37-1.183.01-1.44.373-.258.97-.025 1.35.507.368.545.368 1.19-.01 1.452zm3.261 3.361c-.33.365-1.036.267-1.552-.23-.527-.487-.674-1.18-.343-1.544.336-.366 1.045-.264 1.564.23.527.486.686 1.18.333 1.543zm4.5 1.951c-.147.473-.825.688-1.51.486-.683-.207-1.13-.76-.99-1.238.14-.477.823-.7 1.512-.485.683.206 1.13.756.988 1.237zm4.943.361c.017.498-.563.91-1.28.92-.723.017-1.308-.387-1.315-.877 0-.503.568-.91 1.29-.924.717-.013 1.306.387 1.306.88zm4.598-.782c.086.485-.413.984-1.126 1.117-.7.13-1.35-.172-1.44-.653-.086-.498.422-.997 1.122-1.126.714-.123 1.354.17 1.444.663zm0 0"/></svg></a></li>
+            <li><a href="#" class="contact__email" aria-label="이메일 보내기" title="Gmail"><svg class="contact__icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/></svg></a></li>
+            <li><button type="button" class="form-toggle" aria-expanded="false" aria-haspopup="dialog" aria-label="문의 폼 열기" title="문의하기"><i data-lucide="mail" aria-hidden="true"></i></button></li>
+          </ul>
 
-      <!-- 문의 폼 모달: 기본 숨김 — [icon: mail] 버튼 클릭 시 js/contact-modal.js가 .visible 토글 -->
-      <div class="contact__modal" role="dialog" aria-modal="true" aria-label="문의 폼">
-        <form class="contact__form form" novalidate>
-          <div class="contact__form-bar">
-            <button type="button" class="contact__form-close" aria-label="문의 폼 닫기">[icon: x]</button>
-            <button type="submit" class="contact__form-send" aria-label="메시지 보내기">[icon: send]</button>
+          <!-- 문의 폼 모달: 기본 숨김 — mail 아이콘 버튼 클릭 시 js/contact-modal.js가 .visible 토글 -->
+          <div class="contact__modal" role="dialog" aria-modal="true" aria-label="문의 폼">
+            <form class="contact__form form" novalidate>
+              <div class="contact__form-bar">
+                <button type="button" class="contact__form-close" aria-label="문의 폼 닫기" title="닫기"><i data-lucide="x" aria-hidden="true"></i></button>
+                <button type="submit" class="contact__form-send" aria-label="메시지 보내기" title="보내기"><i data-lucide="send" aria-hidden="true"></i></button>
+              </div>
+
+              <div class="form__field">
+                <div class="form__field-row">
+                  <label for="name">이름</label>
+                  <input type="text" id="name" name="name" placeholder="이름을 입력해주세요" required>
+                </div>
+                <p class="form__error" id="name-error"></p>
+              </div>
+
+              <div class="form__field">
+                <div class="form__field-row">
+                  <label for="email">이메일</label>
+                  <input type="email" id="email" name="email" placeholder="example@email.com" required>
+                </div>
+                <p class="form__error" id="email-error"></p>
+              </div>
+
+              <div class="form__field form__field--message">
+                <div class="form__field-row">
+                  <label for="message">메시지</label>
+                  <textarea id="message" name="message" rows="6" placeholder="메시지를 입력해주세요" required></textarea>
+                </div>
+                <p class="form__error" id="message-error"></p>
+              </div>
+
+              <p class="form__success" role="status"></p>
+            </form>
           </div>
-
-          <div class="form__field">
-            <div class="form__field-row">
-              <label for="name">이름</label>
-              <input type="text" id="name" name="name" placeholder="이름을 입력해주세요" required>
-            </div>
-            <p class="form__error" id="name-error"></p>
-          </div>
-
-          <div class="form__field">
-            <div class="form__field-row">
-              <label for="email">이메일</label>
-              <input type="email" id="email" name="email" placeholder="example@email.com" required>
-            </div>
-            <p class="form__error" id="email-error"></p>
-          </div>
-
-          <div class="form__field form__field--message">
-            <div class="form__field-row">
-              <label for="message">메시지</label>
-              <textarea id="message" name="message" rows="6" placeholder="메시지를 입력해주세요" required></textarea>
-            </div>
-            <p class="form__error" id="message-error"></p>
-          </div>
-
-          <p class="form__success" role="status"></p>
-        </form>
+        </div>
       </div>
     </section>
 
@@ -110,10 +122,7 @@
 
     <!-- Projects: GitHub API 연동 카드 (js/main.js에서 동적 렌더링) -->
     <section id="projects" class="projects reveal">
-      <div class="projects__head">
-        <h3 class="section-title">Projects</h3>
-        <button type="button" class="projects__refresh" aria-label="프로젝트 새로고침">[icon: refresh]</button>
-      </div>
+      <h3 class="section-title">Projects</h3>
       <div class="projects__status" role="status" hidden>
         <!-- 로딩 / 에러 / 빈 상태 메시지가 표시됨 -->
       </div>
@@ -128,6 +137,6 @@
     <p class="footer__copyright">&copy; 2026 [이름]. All rights reserved.</p>
   </footer>
 
-  <button type="button" class="scroll-top" aria-label="맨 위로 이동">[icon: arrow-up]</button>
+  <button type="button" class="scroll-top" aria-label="맨 위로 이동" title="맨 위로"><i data-lucide="arrow-up" aria-hidden="true"></i></button>
 </body>
 </html>
