@@ -82,7 +82,7 @@
 - **카드 `.card`**: surface 배경 + border + shadow + radius, 패딩 `md`. hover 시 그림자 강조. Projects 저장소 카드에 사용.
 - **섹션 제목 `.section-title`**: 코드 주석 스타일 라벨 — `sm` 크기, muted 색, `::before`로 `// ` 접두어, 자간 0.08em. 태그는 `<h3>` 유지 (시맨틱·접근성).
 - **폼 `.form`**: 필드 세로 배치, 라벨 위·인풋 아래. 에러는 `--color-error`로 필드 바로 아래, 성공 메시지는 `--color-success`.
-- **기술 스택 = 프로젝트 필터 (중복 선택)**: Skills 항목은 `.skills__filter` 토글 버튼 — 여러 개를 동시에 선택할 수 있고, 선택된 언어 중 하나라도 해당하는 프로젝트를 표시 (`array.filter()`). 아무것도 선택 안 하면 전체 표시. JS가 GitHub 저장소 언어 목록으로 동적 생성하며, 선택된 필터는 primary 색 테두리·글자로 표시. `[badge: ...]` 자리는 뱃지/아이콘으로 교체 가능.
+- **기술 스택 = 프로젝트 필터 (중복 선택)**: Skills 항목은 `.skills__filter` 토글 버튼 — 여러 개를 동시에 선택할 수 있고, 선택된 언어를 전부 포함하는 프로젝트만 표시(교집합, `array.filter()` + `array.every()`). 아무것도 선택 안 하면 전체 표시. JS가 GitHub 저장소 언어 목록으로 동적 생성하며, 선택된 필터는 primary 색 테두리·글자로 표시. `[badge: ...]` 자리는 뱃지/아이콘으로 교체 가능.
 - **아이콘**: `[icon: moon]`, `[icon: menu]`, `[icon: arrow-up]`, `[icon: github]`, `[icon: mail]` 자리에 유니코드/이모지 문자만 사용. 라이브러리 금지.
 - **Contact**: 텍스트 링크 대신 아이콘 가로 나열 — `[icon: github]`는 GitHub 프로필 링크, `[icon: mail]`은 문의 폼 토글 버튼. hover 시 primary 색.
 

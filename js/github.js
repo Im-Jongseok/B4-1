@@ -68,12 +68,12 @@ const renderProjectCards = (repos) => {
 
 // --------------------------------------------------------------------------
 // Skills = 언어 필터: 저장소 language 목록 추출 → 버튼 동적 생성
-// - 중복 선택 가능(Set), 선택된 언어 중 하나라도 해당하면 표시, 빈 선택은 전체 표시
+// - 중복 선택 가능(Set), 선택된 언어를 전부 포함하는 저장소만 표시(교집합), 빈 선택은 전체 표시
 // --------------------------------------------------------------------------
 const applyLanguageFilter = () => {
   const filteredRepos = selectedLanguages.size === 0
     ? allRepos
-    : allRepos.filter((repo) => repo.languages.some((language) => selectedLanguages.has(language)));
+    : allRepos.filter((repo) => [...selectedLanguages].every((language) => repo.languages.includes(language)));
   renderProjectCards(filteredRepos);
 };
 
@@ -106,9 +106,11 @@ const renderSkills = (repos) => {
   });
 };
 
-const renderProjects = (repos) => {
+const renderProjects = (repos, { updateSkills = true } = {}) => {
   allRepos = repos;
-  renderSkills(repos);
+  if (updateSkills) {
+    renderSkills(repos);
+  }
   applyLanguageFilter();
 };
 
@@ -129,7 +131,10 @@ const loadProjects = async (force = false) => {
     }
   }
 
-  renderProjectsLoading();
+  // 새로고침(force)일 땐 카드만 다시 그리고 Skills 필터 목록은 그대로 유지
+  if (!force) {
+    renderProjectsLoading();
+  }
 
   try {
     const response = await fetch(GITHUB_REPOS_ENDPOINT);
@@ -142,7 +147,7 @@ const loadProjects = async (force = false) => {
       PROJECTS_CACHE_KEY,
       JSON.stringify({ timestamp: Date.now(), repos: reposWithLanguages })
     );
-    renderProjects(reposWithLanguages);
+    renderProjects(reposWithLanguages, { updateSkills: !force });
   } catch (error) {
     renderProjectsError();
   }
