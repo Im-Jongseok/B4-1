@@ -57,7 +57,7 @@
     <section id="contact" class="contact">
       <h3 class="section-title">Contact</h3>
       <ul class="contact__info">
-        <li><a href="#" target="_blank" rel="noopener noreferrer" aria-label="GitHub 프로필">[icon: github]</a></li>
+        <li><a href="https://github.com/Im-Jongseok" target="_blank" rel="noopener noreferrer" aria-label="GitHub 프로필">[icon: github]</a></li>
         <li><button type="button" class="form-toggle" aria-expanded="false" aria-haspopup="dialog" aria-label="문의 폼 열기">[icon: mail]</button></li>
       </ul>
 
@@ -99,19 +99,20 @@
     </section>
 
     <!-- Skills: 기술 스택 목록 = 프로젝트 언어 필터
-         (js/main.js가 GitHub 저장소 언어 목록으로 버튼을 동적 생성) -->
+         (js/github.js가 저장소 언어 목록으로 버튼을 동적 생성, 중복 선택 가능) -->
     <section id="skills" class="skills">
       <h3 class="section-title">Skills</h3>
       <ul class="skills__list">
-        <li><button type="button" class="skills__filter" data-language="">[badge: 기술 1]</button></li>
-        <li><button type="button" class="skills__filter" data-language="">[badge: 기술 2]</button></li>
-        <li><button type="button" class="skills__filter" data-language="">[badge: 기술 3]</button></li>
+        <!-- 저장소 언어 필터 버튼이 동적으로 렌더링됨 -->
       </ul>
     </section>
 
     <!-- Projects: GitHub API 연동 카드 (js/main.js에서 동적 렌더링) -->
     <section id="projects" class="projects">
-      <h3 class="section-title">Projects</h3>
+      <div class="projects__head">
+        <h3 class="section-title">Projects</h3>
+        <button type="button" class="projects__refresh" aria-label="프로젝트 새로고침">[icon: refresh]</button>
+      </div>
       <div class="projects__status" role="status" hidden>
         <!-- 로딩 / 에러 / 빈 상태 메시지가 표시됨 -->
       </div>
