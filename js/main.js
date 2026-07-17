@@ -9,9 +9,6 @@
 // 상수 — 동작 기준값 (README에 명시)
 // --------------------------------------------------------------------------
 const NAV_BACKGROUND_SCROLL_Y = 60; // 이 값 이상 스크롤 시 네비 배경 변경
-const THEME_STORAGE_KEY = 'theme'; // localStorage에 저장하는 테마 키
-const THEME_DARK = 'dark';
-const THEME_LIGHT = 'light';
 
 // --------------------------------------------------------------------------
 // 요소 선택
@@ -21,27 +18,7 @@ const hamburger = document.querySelector('.hamburger');
 const nav = document.querySelector('.header__nav');
 const navLinks = document.querySelectorAll('.nav__link');
 const scrollTopButton = document.querySelector('.scroll-top');
-const themeToggle = document.querySelector('.theme-toggle');
-
-// --------------------------------------------------------------------------
-// 다크 모드: 토글 클릭 → 테마 상태 변경 → data-theme 속성으로 전체 화면 전환
-// - 상태는 localStorage에 저장되어 새로고침 후에도 유지
-// --------------------------------------------------------------------------
-const renderTheme = (theme) => {
-  document.documentElement.setAttribute('data-theme', theme);
-  themeToggle.textContent = theme === THEME_DARK ? '[icon: sun]' : '[icon: moon]';
-};
-
-// 초기 테마: 저장된 값이 없으면 라이트
-const savedTheme = localStorage.getItem(THEME_STORAGE_KEY) ?? THEME_LIGHT;
-renderTheme(savedTheme);
-
-themeToggle.addEventListener('click', () => {
-  const currentTheme = document.documentElement.getAttribute('data-theme');
-  const nextTheme = currentTheme === THEME_DARK ? THEME_LIGHT : THEME_DARK;
-  localStorage.setItem(THEME_STORAGE_KEY, nextTheme);
-  renderTheme(nextTheme);
-});
+// 다크 모드 토글은 js/theme.js가 처리
 
 // --------------------------------------------------------------------------
 // 햄버거 메뉴: 클릭 → 열림 상태 토글 → 오른쪽 드롭다운 패널 표시/숨김

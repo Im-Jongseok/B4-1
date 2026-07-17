@@ -349,6 +349,30 @@ main > section {
   display: block;
 }
 
+/* Project 카드: GitHub 저장소 카드 (.card 박스 스타일 사용) */
+.project-card__link {
+  display: block;
+}
+
+.project-card__title {
+  font-size: var(--font-size-lg);
+}
+
+.project-card__link:hover .project-card__title {
+  color: var(--color-primary);
+}
+
+.project-card__description {
+  margin-top: var(--space-sm);
+  color: var(--color-text-muted);
+}
+
+.project-card__meta {
+  margin-top: var(--space-sm);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
 /* --------------------------------------------------------------------------
    6. 반응형 — 태블릿 (768px~)
    -------------------------------------------------------------------------- */
