@@ -203,6 +203,24 @@ main > section {
   padding: var(--space-xl) var(--space-md);
 }
 
+/* 스크롤 리빌: 뷰포트에 20% 이상 보이면 js/reveal.js가 .visible 추가 */
+.reveal {
+  opacity: 0;
+  transform: translateY(60px);
+  transition: opacity 1.2s ease, transform 1.2s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    transition: none;
+  }
+}
+
 /* Hero: 모든 화면에서 첫 화면을 가득 채움 (4.5rem = 헤더 높이) */
 .hero {
   display: flex;

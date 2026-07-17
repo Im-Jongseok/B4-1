@@ -13,6 +13,7 @@
   <script src="js/github.js" defer></script>
   <script src="js/contact-modal.js" defer></script>
   <script src="js/contact-form.js" defer></script>
+  <script src="js/reveal.js" defer></script>
   <script src="js/main.js" defer></script>
 </head>
 <body>
@@ -43,7 +44,7 @@
     </section>
 
     <!-- About: 자기소개 + 프로필 이미지 -->
-    <section id="about" class="about">
+    <section id="about" class="about reveal">
       <h3 class="section-title">About Me</h3>
       <div class="about__content">
         <img src="images/profile.svg" alt="[이름] 프로필 이미지" class="about__photo" width="160" height="160">
@@ -54,7 +55,7 @@
     </section>
 
     <!-- Contact: 아이콘 링크 + 문의 폼 (폼은 [icon: mail] 토글) -->
-    <section id="contact" class="contact">
+    <section id="contact" class="contact reveal">
       <h3 class="section-title">Contact</h3>
       <ul class="contact__info">
         <li><a href="https://github.com/Im-Jongseok" target="_blank" rel="noopener noreferrer" aria-label="GitHub 프로필">[icon: github]</a></li>
@@ -100,7 +101,7 @@
 
     <!-- Skills: 기술 스택 목록 = 프로젝트 언어 필터
          (js/github.js가 저장소 언어 목록으로 버튼을 동적 생성, 중복 선택 가능) -->
-    <section id="skills" class="skills">
+    <section id="skills" class="skills reveal">
       <h3 class="section-title">Skills</h3>
       <ul class="skills__list">
         <!-- 저장소 언어 필터 버튼이 동적으로 렌더링됨 -->
@@ -108,7 +109,7 @@
     </section>
 
     <!-- Projects: GitHub API 연동 카드 (js/main.js에서 동적 렌더링) -->
-    <section id="projects" class="projects">
+    <section id="projects" class="projects reveal">
       <div class="projects__head">
         <h3 class="section-title">Projects</h3>
         <button type="button" class="projects__refresh" aria-label="프로젝트 새로고침">[icon: refresh]</button>

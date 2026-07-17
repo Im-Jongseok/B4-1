@@ -74,7 +74,7 @@
 |------|-----|------|
 | `--radius` | `0` | 라운드 미사용 — 모든 모서리 각지게 |
 | `--shadow` | `0 2px 8px rgba(0,0,0,0.08)` | 카드 기본 그림자 (다크: 0.4) |
-| `--transition` | `0.2s ease` | hover 등 상태 전환 (스크롤 리빌 애니메이션은 1차 범위 제외) |
+| `--transition` | `0s ease` | hover 등 상태 전환(즉시 전환, 애니메이션 없음). 스크롤 리빌은 별도로 `0.6s ease` 고정 사용 |
 
 ## 6. 컴포넌트
 
@@ -103,4 +103,4 @@
 | 스크롤 탑 버튼 노출 | 스크롤 시작 시 (스크롤 위치 > 0), 하단 중앙 고정 |
 | 네비 배경 변경 | 스크롤 60px 이상 |
 | Contact 문의 폼 | 기본 숨김 — `[icon: mail]` 버튼 클릭 시 표시 토글 |
-| 스크롤 리빌 애니메이션 | 1차 제외 (추후 IntersectionObserver threshold 0.2) |
+| 스크롤 리빌 애니메이션 | IntersectionObserver threshold 0.2, 섹션(about/contact/skills/projects)이 20% 보이면 1회성으로 `.visible` 추가 |
