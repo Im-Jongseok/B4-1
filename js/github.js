@@ -5,7 +5,8 @@
 // - 상태: loading | success | error | empty
 // - sessionStorage에 캐싱해 새로고침 시 중복 호출 방지
 // ==========================================================================
-let GITHUB_REPOS_ENDPOINT = '';
+const GITHUB_USERNAME = 'Im-Jongseok';
+const GITHUB_REPOS_ENDPOINT = `https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=12`;
 const PROJECTS_CACHE_KEY = 'github-repos';
 const PROJECTS_CACHE_TTL_MS = 30 * 60 * 1000; // 캐시 유효 시간 30분 — 레이트 리밋(60회/시간) 보호
 
@@ -41,7 +42,10 @@ const renderProjectsLoading = () => {
 
 const renderProjectsEmpty = () => {
   projectsStatus.hidden = false;
-  projectsStatus.innerHTML = '<i data-lucide="inbox" aria-hidden="true"></i>';
+  projectsStatus.innerHTML = `
+    <i data-lucide="inbox" class="projects__status-icon" aria-hidden="true"></i>
+    <p>표시할 프로젝트가 없습니다.</p>
+  `;
   projectsGrid.innerHTML = '';
   lucide.createIcons();
 };
@@ -50,10 +54,10 @@ const renderProjectsError = () => {
   projectsStatus.hidden = false;
   projectsStatus.innerHTML = `
     <p><i data-lucide="triangle-alert" aria-hidden="true"></i></p>
-    <button type="button" class="btn projects-retry" aria-label="다시 시도" title="다시 시도"><i data-lucide="refresh-cw" aria-hidden="true"></i></button>
+    <button type="button" class="btn projects__retry" aria-label="다시 시도" title="다시 시도"><i data-lucide="refresh-cw" aria-hidden="true"></i></button>
   `;
   projectsGrid.innerHTML = '';
-  projectsStatus.querySelector('.projects-retry').addEventListener('click', () => loadProjects(true));
+  projectsStatus.querySelector('.projects__retry').addEventListener('click', () => loadProjects(true));
   lucide.createIcons();
 };
 
@@ -88,7 +92,7 @@ const toggleLanguageFilter = (button) => {
   } else {
     selectedLanguages.add(language);
   }
-  button.classList.toggle('active', !isActive);
+  button.classList.toggle('skills__filter--active', !isActive);
 
   applyLanguageFilter();
 };
@@ -161,8 +165,10 @@ const loadProjects = async (force = false) => {
     return;
   }
 
-  // 새로고침(force)일 땐 카드만 다시 그리고 Skills 필터 목록은 그대로 유지
-  if (!force) {
+  // 최초 자동 로드는 로딩 스피너를 보여주지 않고 데이터가 준비된 뒤 한 번에 렌더링
+  // (컴포넌트가 이미 보인 다음에 상태를 바꾸면 레이아웃이 흔들리므로, 데이터부터 받고 그 다음에 그림)
+  // 새로고침 버튼처럼 사용자가 직접 요청한 재조회일 때만 진행 상태를 보여줌
+  if (force) {
     renderProjectsLoading();
   }
 
@@ -188,8 +194,4 @@ const loadProjects = async (force = false) => {
   }
 };
 
-// data.js가 profile.github.username을 받아온 후 호출 — 저장소 fetch를 시작
-const initProjects = (githubUsername) => {
-  GITHUB_REPOS_ENDPOINT = `https://api.github.com/users/${githubUsername}/repos?sort=updated&per_page=12`;
-  loadProjects();
-};
+loadProjects();

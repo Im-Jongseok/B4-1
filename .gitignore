@@ -10,3 +10,4 @@
 
 # etc
 *.log
+.claude/

@@ -24,31 +24,36 @@ const scrollTopButton = document.querySelector('.scroll-top');
 // 햄버거 메뉴: 클릭 → 열림 상태 토글 → 오른쪽 드롭다운 패널 표시/숨김
 // --------------------------------------------------------------------------
 hamburger.addEventListener('click', () => {
-  const isOpen = nav.classList.toggle('active');
+  const isOpen = nav.classList.toggle('header__nav--active');
   hamburger.setAttribute('aria-expanded', String(isOpen));
 });
 
 // 메뉴 링크 클릭 → 메뉴 닫기 (섹션 이동은 앵커 + CSS smooth scroll이 처리)
 navLinks.forEach((link) => {
   link.addEventListener('click', () => {
-    nav.classList.remove('active');
+    nav.classList.remove('header__nav--active');
     hamburger.setAttribute('aria-expanded', 'false');
   });
 });
 
 // --------------------------------------------------------------------------
 // 스크롤 상태 → 화면 업데이트
-// - 네비 배경: 기준값 이상 스크롤 시 .scrolled
-// - 스크롤 탑 버튼: 스크롤을 내리기 시작하면 .visible
+// - 네비 배경: 기준값 이상 스크롤 시 .header--scrolled
+// - 스크롤 탑 버튼: 스크롤을 내리기 시작하면 .scroll-top--active
 // --------------------------------------------------------------------------
 const renderScrollState = () => {
   const { scrollY } = window;
-  header.classList.toggle('scrolled', scrollY > NAV_BACKGROUND_SCROLL_Y);
-  scrollTopButton.classList.toggle('visible', scrollY > 0);
+  header.classList.toggle('header--scrolled', scrollY > NAV_BACKGROUND_SCROLL_Y);
+  scrollTopButton.classList.toggle('scroll-top--active', scrollY > 0);
 };
 
 window.addEventListener('scroll', renderScrollState);
 renderScrollState(); // 새로고침 시 현재 스크롤 위치 반영
+
+// 스크롤 위치 복원이 끝난 뒤에만 smooth scroll 재활성화 (head 인라인 스크립트에서 껐음)
+window.addEventListener('load', () => {
+  document.documentElement.style.scrollBehavior = '';
+});
 
 // 스크롤 탑 버튼: 클릭 → 페이지 맨 위로 부드럽게 이동
 scrollTopButton.addEventListener('click', () => {

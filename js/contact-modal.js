@@ -9,13 +9,15 @@ const contactModal = document.querySelector('.contact__modal');
 const contactFormClose = document.querySelector('.contact__form-close');
 
 const openContactModal = () => {
-  contactModal.classList.add('visible');
+  contactModal.classList.add('contact__modal--active');
   formToggle.setAttribute('aria-expanded', 'true');
+  document.body.style.overflow = 'hidden';
 };
 
 const closeContactModal = () => {
-  contactModal.classList.remove('visible');
+  contactModal.classList.remove('contact__modal--active');
   formToggle.setAttribute('aria-expanded', 'false');
+  document.body.style.overflow = '';
 };
 
 formToggle.addEventListener('click', openContactModal);
@@ -30,7 +32,7 @@ contactModal.addEventListener('click', (event) => {
 
 // Esc 키로 닫기
 document.addEventListener('keydown', (event) => {
-  if (event.key === 'Escape' && contactModal.classList.contains('visible')) {
+  if (event.key === 'Escape' && contactModal.classList.contains('contact__modal--active')) {
     closeContactModal();
   }
 });

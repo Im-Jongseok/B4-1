@@ -148,7 +148,7 @@ body {
 }
 
 /* 원형 아이콘 버튼 — 다시 시도 버튼(에러 상태) */
-.projects-retry {
+.projects__retry {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -192,8 +192,8 @@ body {
   transition: background-color var(--transition);
 }
 
-/* 스크롤 시 네비 배경 변경 (JS가 .scrolled 토글) */
-.header.scrolled {
+/* 스크롤 시 네비 배경 변경 (JS가 .header--scrolled 토글) */
+.header--scrolled {
   background-color: var(--color-surface);
   box-shadow: var(--shadow);
 }
@@ -215,7 +215,7 @@ body {
   box-shadow: var(--shadow);
 }
 
-.header__nav.active {
+.header__nav--active {
   display: block;
 }
 
@@ -241,7 +241,7 @@ body {
 
 .theme-toggle,
 .hamburger {
-  padding: var(--space-xs) var(--space-sm);
+  padding: var(--space-xs);
 }
 
 /* 다크 모드 토글: 두 아이콘을 겹쳐두고 테마에 따라 하나만 표시 (js/theme.js가 .theme-toggle--dark 토글) */
@@ -260,24 +260,6 @@ body {
 /* 본문 섹션: 화면 전체 폭 사용 */
 main > section {
   padding: var(--space-xl) var(--space-md);
-}
-
-/* 스크롤 리빌: 뷰포트에 20% 이상 보이면 js/reveal.js가 .visible 추가 */
-.reveal {
-  opacity: 0;
-  transform: translateY(60px);
-  transition: opacity 1.2s ease, transform 1.2s ease;
-}
-
-.reveal.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .reveal {
-    transition: none;
-  }
 }
 
 /* Hero: 모든 화면에서 첫 화면을 가득 채움 (4.5rem = 헤더 높이) */
@@ -311,11 +293,42 @@ main > section {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--space-sm);
+  gap: var(--space-lg);
 }
 
 .about__photo {
   border-radius: 50%;
+}
+
+/* 자기소개 블록(핸들+본문)과 Contact를 세로로 묶음 — space-around로 균등 분배(데스크톱 stretch 시) */
+.about__details {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+/* 핸들·본문은 붙여서 표시 */
+.about__text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.about__handle {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+/* Skills: 아래 Projects와 바로 이어지도록 아래쪽 여백 축소 */
+.skills {
+  padding-bottom: var(--space-lg);
+}
+
+/* Projects: Skills 바로 아래로 이어지도록 위쪽 여백 제거 */
+.projects {
+  padding-top: 0;
+  min-width: 0;
+  position: relative;
 }
 
 /* Skills: 뱃지/아이콘 목록이자 프로젝트 언어 필터 버튼 */
@@ -324,6 +337,9 @@ main > section {
   flex-wrap: wrap;
   align-items: center;
   gap: var(--space-sm);
+  /* API 로드 전엔 비어있어 높이 0 — 로드 후 배지가 채워지며 아래 콘텐츠가 밀려
+     스크롤 위치가 위로 튀어보이는 것 방지. 언어 많아서 2줄로 wrap돼도 안전하게 넉넉히 확보 */
+  min-height: 5.5rem;
 }
 
 .skills__filter {
@@ -338,23 +354,45 @@ main > section {
 }
 
 /* 선택된 필터: 청사진 포인트로 표시 */
-.skills__filter.active {
+.skills__filter--active {
   color: var(--color-primary);
   border-color: var(--color-primary);
 }
 
-/* Projects: 고정 크기 카드가 auto-fill로 줄바꿈되는 그리드 */
+/* Projects: 가로 스크롤 카드 목록 (세로 wrap 없이 옆으로 스크롤) — 이 컨테이너 안에서만 스크롤되게 폭 강제 고정 */
 .projects__grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, 280px);
-  justify-content: start;
+  display: flex;
+  width: 100%;
+  min-width: 0;
+  min-height: 150px;
   gap: var(--space-md);
+  overflow-x: auto;
+  padding-bottom: var(--space-sm);
+  scroll-snap-type: x proximity;
+  -webkit-overflow-scrolling: touch;
 }
 
+/* grid 위에 겹쳐서 표시 — 로딩/에러/빈 상태가 켜지고 꺼져도 grid의 min-height 영역을 그대로 써서
+   문서 전체 높이가 안 변하게(새로고침 시 스크롤 위치가 밀리는 것 방지) */
 .projects__status {
-  padding: var(--space-lg) 0;
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   text-align: center;
   color: var(--color-text-muted);
+}
+
+.projects__status[hidden] {
+  display: none;
+}
+
+.projects__status-icon {
+  width: 2.5em;
+  height: 2.5em;
+  margin-bottom: var(--space-sm);
 }
 
 .contact__info {
@@ -363,12 +401,20 @@ main > section {
   gap: var(--space-sm);
 }
 
+/* 아이콘 링크/버튼 클릭 영역 통일 — <a>는 기본 padding 없고 <button>은 브라우저 기본값이 달라서 명시적으로 맞춤 */
+.contact__github,
+.contact__email,
+.form-toggle {
+  display: inline-flex;
+  padding: var(--space-xs);
+}
+
 .contact__info a:hover,
 .form-toggle:hover {
   color: var(--color-primary);
 }
 
-/* 문의 폼 팝업: 기본 숨김 — [icon: mail] 버튼 클릭 시 JS가 .visible 토글 */
+/* 문의 폼 팝업: 기본 숨김 — mail 아이콘 버튼 클릭 시 JS가 .contact__modal--active 토글 */
 .contact__modal {
   display: none;
   position: fixed;
@@ -380,14 +426,14 @@ main > section {
   background-color: rgba(0, 0, 0, 0.5);
 }
 
-.contact__modal.visible {
+.contact__modal--active {
   display: flex;
 }
 
 /* iOS Mail 작성 화면 느낌의 미니멀 시트: 상단바 + 구분선 필드 목록 */
 .contact__form {
   width: 100%;
-  max-width: 420px;
+  max-width: 340px;
   max-height: 90vh;
   overflow-y: auto;
   background-color: var(--color-bg);
@@ -408,7 +454,7 @@ main > section {
 
 .contact__form-close,
 .contact__form-send {
-  padding: var(--space-xs) 0;
+  padding: var(--space-xs);
 }
 
 .contact__form-close {
@@ -485,17 +531,36 @@ main > section {
   display: none;
 }
 
-.form__success {
+/* 문의 폼 전송 진행/결과 토스트 — 화면 정중앙, 모달과 별개로 뜸. hidden 속성 대신 .toast--active로 토글 */
+.toast {
+  display: none;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 300;
+  align-items: center;
+  gap: var(--space-sm);
   padding: var(--space-sm) var(--space-md);
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow);
+}
+
+.toast--active {
+  display: flex;
+}
+
+.toast--loading .toast__icon {
+  color: var(--color-text-muted);
+}
+
+.toast--success .toast__icon {
   color: var(--color-success);
 }
 
-.form__success--error {
+.toast--error .toast__icon {
   color: var(--color-error);
-}
-
-.form__success:empty {
-  display: none;
 }
 
 /* 푸터 */
@@ -507,12 +572,11 @@ main > section {
   color: var(--color-text-muted);
 }
 
-/* 스크롤 탑 버튼: 하단 중앙, 기본 숨김 — 스크롤 시작 시 JS가 .visible 토글 (6단계) */
+/* 스크롤 탑 버튼: 하단 중앙, 기본 숨김 — 스크롤 시작 시 JS가 .scroll-top--active 토글 */
 .scroll-top {
   display: none;
   position: fixed;
-  left: 50%;
-  transform: translateX(-50%);
+  right: var(--space-md);
   bottom: var(--space-md);
   align-items: center;
   justify-content: center;
@@ -525,16 +589,18 @@ main > section {
   box-shadow: var(--shadow);
 }
 
-.scroll-top.visible {
+.scroll-top--active {
   display: flex;
 }
 
 /* Project 카드: GitHub 저장소 카드 (.card 박스 스타일 사용) — 고정 크기 */
 .project-card {
   position: relative;
+  flex: 0 0 280px;
   width: 280px;
   height: 150px;
   overflow: hidden;
+  scroll-snap-align: start;
 }
 
 .project-card__link {
@@ -599,30 +665,17 @@ main > section {
     right: var(--space-lg);
   }
 
-  /* About: 태블릿부터 그리드 배치 — 이미지 왼쪽(세로 전체), 텍스트 오른쪽 위, Contact 오른쪽 아래 */
+  /* About: 태블릿부터 가로 배치 — 이미지 왼쪽, 텍스트(자기소개+Contact) 오른쪽 세로 스택
+     align-items: stretch로 사진 높이만큼 about__details를 늘려야 space-between이 작동함 */
   .about__content {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    grid-template-areas:
-      "photo text"
-      "photo contact";
-    align-items: start;
-    justify-content: center;
-    column-gap: var(--space-lg);
-    row-gap: var(--space-lg);
+    flex-direction: row;
+    align-items: stretch;
+    justify-content: left;
   }
 
-  .about__photo {
-    grid-area: photo;
-  }
-
-  .about__text {
-    grid-area: text;
-  }
-
-  .about .contact {
-    grid-area: contact;
-    margin-top: 0;
+  /* 문의 폼 팝업: 태블릿부터 좀 더 크게 */
+  .contact__form {
+    max-width: 480px;
   }
 }
 
@@ -630,6 +683,11 @@ main > section {
    7. 반응형 — 데스크톱 (1024px~)
    -------------------------------------------------------------------------- */
 @media (min-width: 1024px) {
+  /* 문의 폼 팝업: 데스크톱은 더 크게 */
+  .contact__form {
+    max-width: 720px;
+  }
+
   /* 섹션 재배치: hero 상단 전체 폭, 그 아래 자기소개(Contact 포함) → 스킬(컴팩트 필터 바) → 프로젝트(전체 폭).
      HTML 순서는 시맨틱하게 유지하고 grid-area로 시각 배치만 변경 */
   main {
@@ -652,11 +710,6 @@ main > section {
 
   .skills .section-title {
     margin-bottom: 0;
-  }
-
-  /* Projects: 필터 바로 아래 바로 이어지도록 위 여백 축소 */
-  .projects {
-    padding-top: 0;
   }
 
   main > section {

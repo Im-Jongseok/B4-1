@@ -12,7 +12,6 @@ const nameInput = document.getElementById('name');
 const emailInput = document.getElementById('email');
 const messageInput = document.getElementById('message');
 const submitButton = document.querySelector('.contact__form-send');
-const formSuccess = contactFormEl.querySelector('.form__success');
 
 const setFieldError = (input, message) => {
   document.getElementById(`${input.id}-error`).textContent = message;
@@ -39,28 +38,6 @@ const validateField = (input) => {
   input.addEventListener('input', () => validateField(input));
 });
 
-const renderSending = () => {
-  submitButton.disabled = true;
-  formSuccess.classList.remove('form__success--error');
-  formSuccess.innerHTML = '<i data-lucide="loader-circle" aria-hidden="true"></i>';
-  lucide.createIcons();
-};
-
-const renderSuccess = () => {
-  submitButton.disabled = false;
-  formSuccess.classList.remove('form__success--error');
-  formSuccess.innerHTML = '<i data-lucide="check" aria-hidden="true"></i>';
-  lucide.createIcons();
-  contactFormEl.reset();
-};
-
-const renderError = () => {
-  submitButton.disabled = false;
-  formSuccess.classList.add('form__success--error');
-  formSuccess.innerHTML = '<i data-lucide="triangle-alert" aria-hidden="true"></i>';
-  lucide.createIcons();
-};
-
 contactFormEl.addEventListener('submit', async (event) => {
   event.preventDefault();
 
@@ -72,7 +49,10 @@ contactFormEl.addEventListener('submit', async (event) => {
     return;
   }
 
-  renderSending();
+  // 폼 모달은 닫고, 전송 진행 상황은 별개의 작은 토스트로 보여줌
+  closeContactModal();
+  submitButton.disabled = true;
+  showToast('loading', 'loader-circle', '전송 중입니다...');
 
   try {
     const response = await fetch(FORMSPREE_ENDPOINT, {
@@ -85,8 +65,11 @@ contactFormEl.addEventListener('submit', async (event) => {
       throw new Error(String(response.status));
     }
 
-    renderSuccess();
+    showToast('success', 'circle-check', '메일이 성공적으로 전송되었습니다.');
+    contactFormEl.reset();
   } catch (error) {
-    renderError();
+    showToast('error', 'triangle-alert', '전송에 실패했습니다. 잠시 후 다시 시도해주세요.');
+  } finally {
+    submitButton.disabled = false;
   }
 });
