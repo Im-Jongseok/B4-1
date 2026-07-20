@@ -21,7 +21,7 @@ submenuLinks.forEach((link) => {
     event.preventDefault();
     const targetId = link.dataset.scrollTarget;
 
-    if (getRouteFromHash() === 'about') {
+    if (getRouteFromHash().route === 'about') {
       scrollToAboutSection(targetId);
     } else {
       window.addEventListener('hashchange', () => scrollToAboutSection(targetId), { once: true });

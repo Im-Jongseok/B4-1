@@ -338,8 +338,16 @@ body {
   gap: var(--space-md);
 }
 
+.blog-post__link {
+  display: block;
+}
+
 .blog-post__title {
   font-size: var(--font-size-lg);
+}
+
+.blog-post__link:hover .blog-post__title {
+  color: var(--color-primary);
 }
 
 .blog-post__date {
@@ -355,6 +363,31 @@ body {
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   color: var(--color-text-muted);
+}
+
+/* Blog 글 상세 */
+.blog-post-detail__back {
+  color: var(--color-text-muted);
+}
+
+.blog-post-detail__back:hover {
+  color: var(--color-primary);
+}
+
+.blog-post-detail__title {
+  margin-top: var(--space-lg);
+  font-size: var(--font-size-xl);
+}
+
+.blog-post-detail__date {
+  margin-top: var(--space-xs);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+.blog-post-detail__content {
+  margin-top: var(--space-md);
+  white-space: pre-line;
 }
 
 /* About: 모바일은 세로 쌓기, 태블릿부터 가로 배치 */
@@ -388,14 +421,25 @@ body {
   color: var(--color-text-muted);
 }
 
-/* Skills: 아래 Projects와 바로 이어지도록 아래쪽 여백 축소 */
-.skills {
+/* About: 아래 Skills와 바로 이어지도록 아래쪽 여백 축소
+   (.view > .about로 specificity를 .view > section과 맞춤 — 안 그러면 shorthand padding에 덮임) */
+.view > .about {
   padding-bottom: var(--space-lg);
 }
 
-/* Projects: Skills 바로 아래로 이어지도록 위쪽 여백 제거 */
-.projects {
+/* Skills: 위는 About과, 아래는 Projects와 바로 이어지도록 여백 축소 */
+.view > .skills {
   padding-top: 0;
+  padding-bottom: var(--space-lg);
+}
+
+/* Projects: Skills 바로 아래로 이어지도록 위쪽 여백 제거
+   (.view > .projects로 specificity를 .view > section과 맞춤) */
+.view > .projects {
+  padding-top: 0;
+}
+
+.projects {
   min-width: 0;
   position: relative;
 }
