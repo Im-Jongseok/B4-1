@@ -68,7 +68,7 @@ contactFormEl.addEventListener('submit', async (event) => {
     showToast('success', 'circle-check', '메일이 성공적으로 전송되었습니다.');
     contactFormEl.reset();
   } catch (error) {
-    showToast('error', 'circle-x', '전송에 실패했습니다.');
+    showToast('error', 'circle-x', '전송에 실패했습니다.\n잠시 후 다시 시도해주세요.');
   } finally {
     submitButton.disabled = false;
   }

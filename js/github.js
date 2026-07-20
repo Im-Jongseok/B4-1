@@ -7,7 +7,7 @@
 // ==========================================================================
 const GITHUB_USERNAME = 'Im-Jongseok';
 const GITHUB_REPOS_ENDPOINT = `https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=12`;
-const PROJECTS_CACHE_KEY = 'github-repos-v2';
+const PROJECTS_CACHE_KEY = 'github-repos-v3';
 const PROJECTS_CACHE_TTL_MS = 30 * 60 * 1000; // 캐시 유효 시간 30분 — 레이트 리밋(60회/시간) 보호
 
 const projectsGrid = document.querySelector('.projects__grid');
@@ -121,6 +121,45 @@ const DEVICON_MAP = {
   Kotlin: 'kotlin',
   Rust: 'rust',
   Shell: 'bash',
+  Docker: 'docker',
+  Git: 'git',
+  Linux: 'linux',
+};
+
+// GitHub linguist가 세분화해서 잡는 Docker 관련 언어명 → 하나로 합쳐서 "Docker"로 표시
+const SKILL_ALIAS_MAP = {
+  Dockerfile: 'Docker',
+  'Docker Compose': 'Docker',
+};
+
+// GitHub 언어 감지로는 절대 안 잡히는 항목(도구/OS) — Skills 목록에 항상 고정으로 포함
+const HARDCODED_SKILLS = ['Git', 'Linux'];
+
+// 카테고리 분류 — 순서가 곧 렌더링 순서. 매핑 없는 언어는 CATEGORY_FALLBACK로 감.
+// Frontend/Backend는 프레임워크·라이브러리 전용 — GitHub API로는 감지가 안 되는 정보라
+// 지금은 매핑이 없어 비어있음(항목 없으면 렌더링 자체가 생략됨), 언어는 전부 Language로 우선 분류
+const SKILL_CATEGORIES = ['Language', 'Frontend', 'Backend', 'DevOps', 'Collaboration'];
+const CATEGORY_FALLBACK = 'Language';
+const SKILL_CATEGORY_MAP = {
+  JavaScript: 'Language',
+  TypeScript: 'Language',
+  HTML: 'Language',
+  CSS: 'Language',
+  Python: 'Language',
+  Java: 'Language',
+  Ruby: 'Language',
+  Go: 'Language',
+  PHP: 'Language',
+  C: 'Language',
+  'C++': 'Language',
+  'C#': 'Language',
+  Swift: 'Language',
+  Kotlin: 'Language',
+  Rust: 'Language',
+  Shell: 'DevOps',
+  Docker: 'DevOps',
+  Linux: 'DevOps',
+  Git: 'Collaboration',
 };
 
 const DEVICON_SVG_BASE = 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons';
@@ -133,12 +172,24 @@ const renderSkillButton = (language) => {
   return `<li><button type="button" class="skills__filter" data-language="${language}">${iconMarkup}${language}</button></li>`;
 };
 
+const renderSkillGroup = (category, languages) => `
+  <div class="skills__group">
+    <h4 class="skills__group-title">${category}</h4>
+    <ul class="skills__group-list">${languages.map(renderSkillButton).join('')}</ul>
+  </div>
+`;
+
 const renderSkills = (repos) => {
-  const languages = [...new Set(repos.flatMap((repo) => repo.languages))].sort((a, b) =>
-    a.localeCompare(b)
+  const languages = [...new Set([...repos.flatMap((repo) => repo.languages), ...HARDCODED_SKILLS])].sort(
+    (a, b) => a.localeCompare(b)
   );
 
-  skillsList.innerHTML = languages.map(renderSkillButton).join('');
+  const groupedLanguages = SKILL_CATEGORIES.map((category) => [
+    category,
+    languages.filter((language) => (SKILL_CATEGORY_MAP[language] ?? CATEGORY_FALLBACK) === category),
+  ]).filter(([, langs]) => langs.length > 0);
+
+  skillsList.innerHTML = groupedLanguages.map(([category, langs]) => renderSkillGroup(category, langs)).join('');
   skillsList.querySelectorAll('.skills__filter').forEach((button) => {
     button.addEventListener('click', () => toggleLanguageFilter(button));
   });
@@ -155,7 +206,9 @@ const renderProjects = (repos) => {
 // 실패해도 빈 배열로 덮어쓰지 않고, 저장소 목록에 이미 포함된 대표 language 하나로 대체
 const fetchRepoLanguages = async (repo) => {
   const response = await fetch(repo.languages_url);
-  const languages = response.ok ? Object.keys(await response.json()) : [repo.language].filter(Boolean);
+  const rawLanguages = response.ok ? Object.keys(await response.json()) : [repo.language].filter(Boolean);
+  // Dockerfile/Docker Compose 등 세분화된 이름을 하나로 합쳐서(SKILL_ALIAS_MAP) 중복 제거
+  const languages = [...new Set(rawLanguages.map((language) => SKILL_ALIAS_MAP[language] ?? language))];
   return { ...repo, languages };
 };
 

@@ -233,6 +233,39 @@ body {
   color: var(--color-primary);
 }
 
+.nav__link--active {
+  color: var(--color-primary);
+}
+
+/* "소개" 서브메뉴: hover 시 노출, 부모 항목 오른쪽에 이어붙는 패널 */
+.nav__item {
+  position: relative;
+}
+
+.nav__submenu {
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 100%;
+  min-width: 140px;
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow);
+}
+
+.nav__item:hover .nav__submenu {
+  display: block;
+}
+
+.nav__submenu-link {
+  display: block;
+  padding: var(--space-sm) var(--space-md);
+}
+
+.nav__submenu-link:hover {
+  color: var(--color-primary);
+}
+
 .header__actions {
   display: flex;
   align-items: center;
@@ -257,8 +290,18 @@ body {
   display: block;
 }
 
+/* 라우팅 뷰: 기본 숨김 — router.js가 .view--active 토글.
+   홈 뷰는 정적 HTML에 view--active가 이미 붙어 있어 JS 실패/지연 시에도 기본으로 보임 */
+.view {
+  display: none;
+}
+
+.view--active {
+  display: block;
+}
+
 /* 본문 섹션: 화면 전체 폭 사용 */
-main > section {
+.view > section {
   padding: var(--space-xl) var(--space-md);
 }
 
@@ -286,6 +329,32 @@ main > section {
   display: flex;
   gap: var(--space-md);
   margin-top: var(--space-lg);
+}
+
+/* Blog: 글 목록 */
+.blog__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.blog-post__title {
+  font-size: var(--font-size-lg);
+}
+
+.blog-post__date {
+  margin-top: var(--space-xs);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+.blog-post__excerpt {
+  margin-top: var(--space-sm);
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  color: var(--color-text-muted);
 }
 
 /* About: 모바일은 세로 쌓기, 태블릿부터 가로 배치 */
@@ -331,15 +400,33 @@ main > section {
   position: relative;
 }
 
-/* Skills: 뱃지/아이콘 목록이자 프로젝트 언어 필터 버튼 */
+/* Skills: 카테고리(Frontend/Backend/DevOps/Collaboration)별로 세로 그룹 */
 .skills__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  /* API 로드 전엔 비어있어 높이 0 — 로드 후 배지가 채워지며 아래 콘텐츠가 밀려
+     스크롤 위치가 위로 튀어보이는 것 방지 */
+  min-height: 5.5rem;
+}
+
+.skills__group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.skills__group-title {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+/* 카테고리 안 뱃지/아이콘 목록이자 프로젝트 언어 필터 버튼 */
+.skills__group-list {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: var(--space-sm);
-  /* API 로드 전엔 비어있어 높이 0 — 로드 후 배지가 채워지며 아래 콘텐츠가 밀려
-     스크롤 위치가 위로 튀어보이는 것 방지. 언어 많아서 2줄로 wrap돼도 안전하게 넉넉히 확보 */
-  min-height: 5.5rem;
 }
 
 .skills__filter {
@@ -367,7 +454,6 @@ main > section {
   min-height: 150px;
   gap: var(--space-md);
   overflow-x: auto;
-  padding-bottom: var(--space-sm);
   scroll-snap-type: x proximity;
   -webkit-overflow-scrolling: touch;
 }
@@ -730,47 +816,7 @@ main > section {
     max-width: 720px;
   }
 
-  /* 섹션 재배치: hero 상단 전체 폭, 그 아래 자기소개(Contact 포함) → 스킬(컴팩트 필터 바) → 프로젝트(전체 폭).
-     HTML 순서는 시맨틱하게 유지하고 grid-area로 시각 배치만 변경 */
-  main {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-areas:
-      "hero"
-      "about"
-      "skills"
-      "projects";
-  }
-
-  /* Skills: 제목과 필터 버튼을 한 줄에 — 컴팩트 필터 바 */
-  .skills {
-    display: flex;
-    align-items: center;
-    gap: var(--space-lg);
-    padding-block: var(--space-lg);
-  }
-
-  .skills .section-title {
-    margin-bottom: 0;
-  }
-
-  main > section {
+  .view > section {
     padding: var(--space-xl) var(--space-lg);
-  }
-
-  .hero {
-    grid-area: hero;
-  }
-
-  .about {
-    grid-area: about;
-  }
-
-  .skills {
-    grid-area: skills;
-  }
-
-  .projects {
-    grid-area: projects;
   }
 }
