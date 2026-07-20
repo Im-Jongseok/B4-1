@@ -7,7 +7,6 @@
 const TOAST_AUTO_HIDE_MS = 4000;
 
 const toastEl = document.querySelector('.toast');
-const toastIcon = toastEl.querySelector('.toast__icon');
 const toastMessage = toastEl.querySelector('.toast__message');
 
 let toastHideTimer = null;
@@ -15,7 +14,8 @@ let toastHideTimer = null;
 const showToast = (variant, icon, message) => {
   clearTimeout(toastHideTimer);
   toastEl.className = `toast toast--active toast--${variant}`;
-  toastIcon.setAttribute('data-lucide', icon);
+  // lucide.createIcons()가 <i>를 <svg>로 통째로 교체하므로 매번 새로 조회해야 함
+  toastEl.querySelector('.toast__icon').setAttribute('data-lucide', icon);
   toastMessage.textContent = message;
   lucide.createIcons();
 

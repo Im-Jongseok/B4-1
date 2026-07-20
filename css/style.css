@@ -381,6 +381,7 @@ main > section {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: var(--space-sm);
   text-align: center;
   color: var(--color-text-muted);
 }
@@ -390,9 +391,12 @@ main > section {
 }
 
 .projects__status-icon {
-  width: 2.5em;
-  height: 2.5em;
-  margin-bottom: var(--space-sm);
+  width: 3em;
+  height: 3em;
+}
+
+.projects__status-icon--spin {
+  animation: spin 1s linear infinite;
 }
 
 .contact__info {
@@ -539,9 +543,14 @@ main > section {
   top: 50%;
   transform: translate(-50%, -50%);
   z-index: 300;
+  flex-direction: column;
   align-items: center;
+  text-align: center;
   gap: var(--space-sm);
-  padding: var(--space-sm) var(--space-md);
+  width: min(280px, calc(100vw - 2rem));
+  min-height: 180px;
+  justify-content: center;
+  padding: var(--space-lg);
   background-color: var(--color-bg);
   border: 1px solid var(--color-border);
   box-shadow: var(--shadow);
@@ -551,16 +560,49 @@ main > section {
   display: flex;
 }
 
+.toast__icon {
+  flex-shrink: 0;
+  width: 3em;
+  height: 3em;
+}
+
+.toast__message {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  white-space: pre-line;
+}
+
 .toast--loading .toast__icon {
   color: var(--color-text-muted);
+  animation: spin 1s linear infinite;
 }
 
 .toast--success .toast__icon {
   color: var(--color-success);
+  animation: toast-pop 0.4s ease-out;
 }
 
 .toast--error .toast__icon {
   color: var(--color-error);
+  animation: toast-pop 0.4s ease-out;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes toast-pop {
+  0% {
+    transform: scale(0);
+  }
+  60% {
+    transform: scale(1.15);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 /* 푸터 */

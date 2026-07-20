@@ -7,7 +7,7 @@
 // ==========================================================================
 const GITHUB_USERNAME = 'Im-Jongseok';
 const GITHUB_REPOS_ENDPOINT = `https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=12`;
-const PROJECTS_CACHE_KEY = 'github-repos';
+const PROJECTS_CACHE_KEY = 'github-repos-v2';
 const PROJECTS_CACHE_TTL_MS = 30 * 60 * 1000; // 캐시 유효 시간 30분 — 레이트 리밋(60회/시간) 보호
 
 const projectsGrid = document.querySelector('.projects__grid');
@@ -35,7 +35,10 @@ const renderProjectCard = ({ name, description, html_url, languages, stargazers_
 
 const renderProjectsLoading = () => {
   projectsStatus.hidden = false;
-  projectsStatus.innerHTML = '<i data-lucide="loader-circle" aria-hidden="true"></i>';
+  projectsStatus.innerHTML = `
+    <i data-lucide="loader-circle" class="projects__status-icon projects__status-icon--spin" aria-hidden="true"></i>
+    <p>불러오는 중입니다...</p>
+  `;
   projectsGrid.innerHTML = '';
   lucide.createIcons();
 };
@@ -53,7 +56,8 @@ const renderProjectsEmpty = () => {
 const renderProjectsError = () => {
   projectsStatus.hidden = false;
   projectsStatus.innerHTML = `
-    <p><i data-lucide="triangle-alert" aria-hidden="true"></i></p>
+    <i data-lucide="triangle-alert" class="projects__status-icon" aria-hidden="true"></i>
+    <p>프로젝트를 불러올 수 없습니다.</p>
     <button type="button" class="btn projects__retry" aria-label="다시 시도" title="다시 시도"><i data-lucide="refresh-cw" aria-hidden="true"></i></button>
   `;
   projectsGrid.innerHTML = '';
@@ -140,18 +144,18 @@ const renderSkills = (repos) => {
   });
 };
 
-const renderProjects = (repos, { updateSkills = true } = {}) => {
+const renderProjects = (repos) => {
   allRepos = repos;
-  if (updateSkills) {
-    renderSkills(repos);
-  }
+  renderSkills(repos);
   applyLanguageFilter();
 };
 
 // 저장소별 사용 언어 상세 조회 (languages_url) — 대표 language 하나가 아닌 실제 사용된 전체 언어 목록
+// languages_url 요청은 저장소 개수만큼 추가로 호출돼 레이트 리밋에 걸리기 쉬움 —
+// 실패해도 빈 배열로 덮어쓰지 않고, 저장소 목록에 이미 포함된 대표 language 하나로 대체
 const fetchRepoLanguages = async (repo) => {
   const response = await fetch(repo.languages_url);
-  const languages = response.ok ? Object.keys(await response.json()) : [];
+  const languages = response.ok ? Object.keys(await response.json()) : [repo.language].filter(Boolean);
   return { ...repo, languages };
 };
 
@@ -183,11 +187,11 @@ const loadProjects = async (force = false) => {
       PROJECTS_CACHE_KEY,
       JSON.stringify({ timestamp: Date.now(), repos: reposWithLanguages })
     );
-    renderProjects(reposWithLanguages, { updateSkills: !force });
+    renderProjects(reposWithLanguages);
   } catch (error) {
     // 새 요청 실패 시, 만료됐더라도 이전에 저장해둔 값이 있으면 그걸로 표시
     if (cachedData) {
-      renderProjects(cachedData.repos, { updateSkills: !force });
+      renderProjects(cachedData.repos);
     } else {
       renderProjectsError();
     }
